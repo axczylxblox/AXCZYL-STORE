@@ -3,92 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Axczyl Store | Murah & Aman</title>
+    <title>AXCZYL STORE | Pro Digital Service</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { background: #0f172a; }
-        .neon-border { box-shadow: 0 0 10px #3b82f6, 0 0 20px #1d4ed8; }
-        .card-gaming { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid #334155; }
+        :root {
+            --primary: #3b82f6;
+            --primary-red: #ef4444;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+        }
+        body { background-color: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; }
+        .grid-menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+        .btn-menu { 
+            background: var(--card-bg); border: 1px solid #334155; padding: 15px; 
+            border-radius: 12px; text-align: center; font-weight: bold; font-size: 12px;
+            cursor: pointer; transition: 0.3s;
+        }
+        .btn-menu:hover { border-color: var(--primary); background: #2d3a4f; }
+        .category-title { font-size: 14px; font-weight: 800; color: var(--primary); margin: 20px 0 10px 0; border-left: 4px solid var(--primary); padding-left: 10px; }
+        .sub-page { display: none; }
+        .item-card { background: var(--card-bg); border-radius: 15px; padding: 15px; border: 1px solid #334155; text-align: center; }
+        .payment-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 20px; }
+        .btn-pay { background: #334155; padding: 10px 5px; border-radius: 8px; font-size: 10px; font-weight: bold; }
+        .btn-pay.active { background: var(--primary); border: 1px solid white; }
+        .noted-box { background: rgba(239, 68, 68, 0.1); border: 1px dashed var(--primary-red); padding: 15px; border-radius: 12px; font-size: 12px; margin-top: 20px; }
     </style>
 </head>
-<body class="text-slate-200">
+<body class="p-4">
 
-    <nav class="p-5 border-b border-slate-800 bg-slate-900/50 sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-black text-blue-500 italic tracking-tighter">AXCZYL <span class="text-white">STORE</span></h1>
-            <div class="text-xs bg-green-500/20 text-green-400 px-3 py-1 rounded-full border border-green-500/50">
-                <i class="fas fa-circle text-[8px] mr-1 animate-pulse"></i> SERVER ONLINE
-            </div>
-        </div>
-    </nav>
-
-    <div class="container mx-auto p-6">
-        <div class="card-gaming rounded-2xl p-6 mb-8 text-center overflow-hidden relative">
-            <div class="relative z-10">
-                <h2 class="text-3xl font-bold mb-2">Top Up Robux Kilat ⚡</h2>
-                <p class="text-slate-400 text-sm">Proses 1-5 Menit | Legal 100% | Aman Anti-Banned</p>
-            </div>
+    <div id="page-home">
+        <h1 class="text-2xl font-black text-center mb-6 text-blue-500 italic">AXCZYL STORE</h1>
+        
+        <h2 class="category-title">• ROBLOX STUDIO •</h2>
+        <div class="grid-menu">
+            <div class="btn-menu" onclick="openPage('robux')">TOPUP ROBUX</div>
+            <div class="btn-menu" onclick="openPage('map')">JASA BUAT MAP</div>
+            <div class="btn-menu" onclick="openPage('dekor')">DEKORASI MAP</div>
+            <div class="btn-menu" onclick="openPage('bugrbx')">FIX BUG ROBLOX</div>
         </div>
 
-        <div class="card-gaming rounded-2xl p-6 mb-8">
-            <h3 class="text-lg font-bold mb-4 text-blue-400"><i class="fas fa-user-edit mr-2"></i> DATA PESANAN</h3>
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs mb-2 text-slate-500 uppercase">Username Roblox</label>
-                    <input type="text" id="username" placeholder="Masukkan Username..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 focus:outline-none focus:border-blue-500 transition-all">
-                </div>
-                <div>
-                    <label class="block text-xs mb-2 text-slate-500 uppercase">Pilih Nominal Robux</label>
-                    <select id="nominal" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 focus:outline-none focus:border-blue-500 transition-all">
-                        <option value="400 Robux - Rp 65.000">400 Robux - Rp 65.000</option>
-                        <option value="800 Robux - Rp 125.000">800 Robux - Rp 125.000</option>
-                        <option value="1700 Robux - Rp 250.000">1700 Robux - Rp 250.000</option>
-                        <option value="4500 Robux - Rp 600.000">4500 Robux - Rp 600.000</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs mb-2 text-slate-500 uppercase">Metode Pembayaran</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="p-3 border border-blue-500 bg-blue-500/10 rounded-lg text-center font-bold">DANA / QRIS</div>
-                        <div class="p-3 border border-slate-700 rounded-lg text-center opacity-50 cursor-not-allowed">Bank Transfer</div>
-                    </div>
-                </div>
-                
-                <button onclick="kirimWA()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-4 rounded-xl mt-4 transition-all transform active:scale-95 neon-border">
-                    <i class="fab fa-whatsapp mr-2"></i> BELI SEKARANG
-                </button>
-            </div>
+        <h2 class="category-title">• FISH IT STORE •</h2>
+        <div class="grid-menu">
+            <div class="btn-menu" onclick="openPage('rod')">TOKO ROD</div>
+            <div class="btn-menu" onclick="openPage('boomber')">BATU ENCHANT</div>
+            <div class="btn-menu" onclick="openPage('coint')">COIN FISH IT</div>
+            <div class="btn-menu" onclick="openPage('joki')">JOKI FISH IT</div>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 text-center">
-            <div class="card-gaming p-4 rounded-xl">
-                <i class="fas fa-shield-alt text-blue-500 text-2xl mb-2"></i>
-                <p class="text-xs font-bold">Terpercaya</p>
-            </div>
-            <div class="card-gaming p-4 rounded-xl">
-                <i class="fas fa-bolt text-yellow-500 text-2xl mb-2"></i>
-                <p class="text-xs font-bold">Instan</p>
-            </div>
+        <h2 class="category-title">• JASA LAINNYA •</h2>
+        <div class="grid-menu">
+            <div class="btn-menu" onclick="openPage('bugwa')">BUG WHATSAPP</div>
+            <div class="btn-menu" onclick="openPage('tracking')">JASA TRACKING</div>
+        </div>
+
+        <div class="noted-box">
+            <b style="color: var(--primary-red);"><i class="fas fa-exclamation-triangle"></i> CARA ORDER:</b><br>
+            1. Pilih Kategori & Produk<br>
+            2. Pilih Metode Pembayaran<br>
+            3. Isi Username/Data yang diperlukan<br>
+            4. Klik Kirim ke WhatsApp Owner
         </div>
     </div>
 
-    <script>
-        function kirimWA() {
-            const noWA = "628xxxxxxxxxx"; // <--- GANTI NOMOR WA KAMU DISINI
-            const user = document.getElementById('username').value;
-            const item = document.getElementById('nominal').value;
+    <div id="product-page" class="sub-page">
+        <button onclick="goHome()" class="mb-5 text-sm font-bold text-slate-400"><i class="fas fa-arrow-left"></i> KEMBALI</button>
+        <h2 id="page-title" class="text-xl font-bold text-blue-400 mb-5">LIST LAYANAN</h2>
+        
+        <div id="item-container" class="grid grid-cols-2 gap-4 mb-8">
+            </div>
 
-            if (user === "") {
-                alert("Waduh, usernamenya lupa diisi!");
+        <div class="bg-slate-800 p-4 rounded-xl mb-5">
+            <p class="text-xs text-slate-400 mb-2 uppercase font-bold">Data Tambahan (Username/ID)</p>
+            <input type="text" id="user-data" placeholder="Contoh: Username Roblox" class="w-full bg-slate-900 border border-slate-700 p-3 rounded-lg text-sm">
+        </div>
+
+        <p class="text-xs text-slate-400 mb-2 uppercase font-bold text-center">Pilih Pembayaran</p>
+        <div class="payment-grid">
+            <button class="btn-pay" onclick="selectPay('QRIS', this)">QRIS</button>
+            <button class="btn-pay" onclick="selectPay('DANA', this)">DANA</button>
+            <button class="btn-pay" onclick="selectPay('GOPAY', this)">GOPAY</button>
+            <button class="btn-pay" onclick="selectPay('BANK', this)">BANK</button>
+        </div>
+
+        <button onclick="kirimOrder()" class="w-full bg-blue-600 py-4 rounded-xl font-bold mt-8 shadow-lg shadow-blue-500/20">
+            KIRIM PESANAN (WA)
+        </button>
+    </div>
+
+    <script>
+        const OWNER_WA = "6289508349104";
+        let selectedProduct = "";
+        let selectedPayment = "";
+
+        const db = {
+            'robux': {
+                title: "Topup Robux",
+                items: [
+                    { name: "100 ROBUX", price: "Rp 14.000" },
+                    { name: "500 ROBUX", price: "Rp 73.000" },
+                    { name: "1K ROBUX", price: "Rp 145.000" }
+                ]
+            },
+            'rod': {
+                title: "Toko Rod Fish It",
+                items: [
+                    { name: "ROD ASTRAL", price: "Rp 500" },
+                    { name: "ROD DIAMOND", price: "Rp 80.000" }
+                ]
+            },
+            'tracking': {
+                title: "Jasa Tracking",
+                items: [
+                    { name: "Lacak Lokasi Via Nomor", price: "Rp 250.000" }
+                ]
+            }
+            // Kamu bisa tambahkan sisanya di sini sesuai format
+        };
+
+        function openPage(cat) {
+            document.getElementById('page-home').style.display = 'none';
+            document.getElementById('product-page').style.display = 'block';
+            
+            const data = db[cat];
+            document.getElementById('page-title').innerText = data.title;
+            
+            let html = "";
+            data.items.forEach(item => {
+                html += `
+                <div class="item-card" onclick="selectItem('${item.name} - ${item.price}', this)">
+                    <p class="text-xs font-bold">${item.name}</p>
+                    <p class="text-blue-400 text-sm font-black mt-1">${item.price}</p>
+                </div>`;
+            });
+            document.getElementById('item-container').innerHTML = html;
+        }
+
+        function goHome() {
+            document.getElementById('page-home').style.display = 'block';
+            document.getElementById('product-page').style.display = 'none';
+        }
+
+        function selectItem(val, el) {
+            selectedProduct = val;
+            document.querySelectorAll('.item-card').forEach(c => c.style.borderColor = "#334155");
+            el.style.borderColor = "#3b82f6";
+        }
+
+        function selectPay(val, el) {
+            selectedPayment = val;
+            document.querySelectorAll('.btn-pay').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function kirimOrder() {
+            const user = document.getElementById('user-data').value;
+            if(!selectedProduct || !selectedPayment || !user) {
+                alert("Lengkapi Data, Produk, dan Pembayaran dulu ya!");
                 return;
             }
-
-            const formatPesan = `Halo Axczyl Store!\n\nSaya mau order Robux nih:\n👤 Username: ${user}\n📦 Produk: ${item}\n💰 Pembayaran: DANA/QRIS\n\nMohon instruksi pembayarannya ya!`;
             
-            const linkWA = `https://wa.me/${noWA}?text=${encodeURIComponent(formatPesan)}`;
-            window.open(linkWA, '_blank');
+            const pesan = `Halo Axczyl Store!\n\nSaya mau order:\n📦 Produk: ${selectedProduct}\n👤 Data: ${user}\n💰 Bayar: ${selectedPayment}\n\nMohon diproses ya!`;
+            window.open(`https://wa.me/${OWNER_WA}?text=${encodeURIComponent(pesan)}`);
         }
     </script>
 </body>
-      </html>
+            </html>
