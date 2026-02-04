@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axczyl Store | Murah & Aman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background: #0f172a; }
+        .neon-border { box-shadow: 0 0 10px #3b82f6, 0 0 20px #1d4ed8; }
+        .card-gaming { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid #334155; }
+    </style>
+</head>
+<body class="text-slate-200">
+
+    <nav class="p-5 border-b border-slate-800 bg-slate-900/50 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-black text-blue-500 italic tracking-tighter">AXCZYL <span class="text-white">STORE</span></h1>
+            <div class="text-xs bg-green-500/20 text-green-400 px-3 py-1 rounded-full border border-green-500/50">
+                <i class="fas fa-circle text-[8px] mr-1 animate-pulse"></i> SERVER ONLINE
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-6">
+        <div class="card-gaming rounded-2xl p-6 mb-8 text-center overflow-hidden relative">
+            <div class="relative z-10">
+                <h2 class="text-3xl font-bold mb-2">Top Up Robux Kilat ⚡</h2>
+                <p class="text-slate-400 text-sm">Proses 1-5 Menit | Legal 100% | Aman Anti-Banned</p>
+            </div>
+        </div>
+
+        <div class="card-gaming rounded-2xl p-6 mb-8">
+            <h3 class="text-lg font-bold mb-4 text-blue-400"><i class="fas fa-user-edit mr-2"></i> DATA PESANAN</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs mb-2 text-slate-500 uppercase">Username Roblox</label>
+                    <input type="text" id="username" placeholder="Masukkan Username..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 focus:outline-none focus:border-blue-500 transition-all">
+                </div>
+                <div>
+                    <label class="block text-xs mb-2 text-slate-500 uppercase">Pilih Nominal Robux</label>
+                    <select id="nominal" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 focus:outline-none focus:border-blue-500 transition-all">
+                        <option value="400 Robux - Rp 65.000">400 Robux - Rp 65.000</option>
+                        <option value="800 Robux - Rp 125.000">800 Robux - Rp 125.000</option>
+                        <option value="1700 Robux - Rp 250.000">1700 Robux - Rp 250.000</option>
+                        <option value="4500 Robux - Rp 600.000">4500 Robux - Rp 600.000</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs mb-2 text-slate-500 uppercase">Metode Pembayaran</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="p-3 border border-blue-500 bg-blue-500/10 rounded-lg text-center font-bold">DANA / QRIS</div>
+                        <div class="p-3 border border-slate-700 rounded-lg text-center opacity-50 cursor-not-allowed">Bank Transfer</div>
+                    </div>
+                </div>
+                
+                <button onclick="kirimWA()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-4 rounded-xl mt-4 transition-all transform active:scale-95 neon-border">
+                    <i class="fab fa-whatsapp mr-2"></i> BELI SEKARANG
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 text-center">
+            <div class="card-gaming p-4 rounded-xl">
+                <i class="fas fa-shield-alt text-blue-500 text-2xl mb-2"></i>
+                <p class="text-xs font-bold">Terpercaya</p>
+            </div>
+            <div class="card-gaming p-4 rounded-xl">
+                <i class="fas fa-bolt text-yellow-500 text-2xl mb-2"></i>
+                <p class="text-xs font-bold">Instan</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function kirimWA() {
+            const noWA = "628xxxxxxxxxx"; // <--- GANTI NOMOR WA KAMU DISINI
+            const user = document.getElementById('username').value;
+            const item = document.getElementById('nominal').value;
+
+            if (user === "") {
+                alert("Waduh, usernamenya lupa diisi!");
+                return;
+            }
+
+            const formatPesan = `Halo Axczyl Store!\n\nSaya mau order Robux nih:\n👤 Username: ${user}\n📦 Produk: ${item}\n💰 Pembayaran: DANA/QRIS\n\nMohon instruksi pembayarannya ya!`;
+            
+            const linkWA = `https://wa.me/${noWA}?text=${encodeURIComponent(formatPesan)}`;
+            window.open(linkWA, '_blank');
+        }
+    </script>
+</body>
+      </html>
