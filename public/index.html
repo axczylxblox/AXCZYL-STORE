@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AXCZYL STORE | PREMIUM GATEWAY</title>
+    <title>AXCZYL STORE | AUTOMATED GATEWAY</title>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
@@ -24,12 +24,19 @@
         .glow-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% -10%, rgba(255, 0, 127, 0.15), transparent 70%); z-index: -1; }
         
         header {
-            padding: 20px 7%; display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 7%; display: flex; justify-content: center; align-items: center;
             background: rgba(3, 3, 3, 0.8); border-bottom: 1px solid var(--border);
             position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px);
         }
-        .logo { font-family: 'Space Grotesk'; font-size: 1.5rem; font-weight: 800; cursor: pointer; }
+        .logo { font-family: 'Space Grotesk'; font-size: 1.4rem; font-weight: 800; cursor: pointer; }
         .logo span { color: var(--primary); }
+
+        /* --- BACK BUTTON --- */
+        .back-btn { 
+            position: absolute; left: 7%; font-size: 1.2rem; color: #fff; cursor: pointer; 
+            transition: 0.3s; width: 40px; height: 40px; display: none; align-items: center; justify-content: center;
+        }
+        .back-btn:hover { color: var(--primary); }
 
         section { display: none; padding: 30px 7%; animation: fadeIn 0.4s ease-out; }
         section.active { display: block; }
@@ -41,26 +48,22 @@
         input, textarea { width: 100%; padding: 16px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 16px; margin-bottom: 15px; outline: none; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
         
-        .btn { background: var(--primary); color: #fff; border: none; padding: 16px; border-radius: 16px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
-        .btn:active { transform: scale(0.95); }
-        
-        /* --- PAYMENT BUTTONS --- */
+        .btn { background: var(--primary); color: #fff; border: none; padding: 16px; border-radius: 16px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn:disabled { background: #333; cursor: not-allowed; }
+
         .pay-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-        .btn-pay { background: #111; border: 1px solid var(--border); border-radius: 16px; padding: 15px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .btn-pay { background: #111; border: 1px solid var(--border); border-radius: 16px; padding: 15px; cursor: pointer; transition: 0.3s; text-align: center; }
         .btn-pay.active { border-color: var(--primary); background: rgba(255, 0, 127, 0.1); }
-        .btn-pay img { height: 22px; }
+        .btn-pay img { height: 22px; display: block; margin: 0 auto 8px; }
 
-        /* --- INSTRUCTION BOX --- */
-        #payment-instruction { display: none; margin-top: 20px; text-align: left; background: #000; border: 1px solid var(--primary); border-radius: 20px; padding: 20px; animation: slideDown 0.3s ease; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
+        #payment-instruction { display: none; margin-top: 20px; background: #000; border: 1px solid var(--primary); border-radius: 20px; padding: 20px; }
         .copy-box { display: flex; justify-content: space-between; align-items: center; background: #111; padding: 12px 15px; border-radius: 12px; margin: 10px 0; border: 1px solid #222; }
         .copy-btn { color: var(--primary); font-size: 0.8rem; font-weight: 800; cursor: pointer; }
 
         .qris-container { background: #fff; padding: 15px; border-radius: 20px; display: inline-block; margin: 20px 0; }
         .qris-img { width: 100%; max-width: 240px; display: block; }
 
-        #loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
+        #loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
         .spinner { width: 45px; height: 45px; border: 4px solid var(--border); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
@@ -69,26 +72,26 @@
 
     <div id="loading-overlay">
         <div class="spinner"></div>
-        <p style="margin-top: 15px; font-weight: 800; letter-spacing: 2px; color: var(--primary);">PROCESSING...</p>
+        <p id="loading-text" style="margin-top: 15px; font-weight: 800; letter-spacing: 2px; color: var(--primary);">PROCESSING...</p>
     </div>
 
     <div class="glow-bg"></div>
 
     <header>
-        <div class="logo" onclick="showPage('home')">AXCZYL<span>STORE</span></div>
-        <div style="font-size: 0.7rem; font-weight: 800; color: #555;"><i class="fas fa-shield-alt"></i> SECURE</div>
+        <div class="back-btn" id="backBtn" onclick="goBack()"><i class="fas fa-arrow-left"></i></div>
+        <div class="logo" onclick="location.reload()">AXCZYL<span>STORE</span></div>
     </header>
 
     <section id="home" class="active">
-        <h2 style="font-family:'Space Grotesk'; margin-bottom: 25px;">PILIH <span>LAYANAN</span></h2>
+        <h2 style="font-family:'Space Grotesk'; margin-bottom: 25px;">SERVICES <span>LIST</span></h2>
         <div class="grid">
             <div class="card">
                 <img src="https://i.ibb.co.com/xKSVXqmb/aplikasi-kiosbank-ppob-mobil-desktop.jpg" style="width:100%; border-radius:18px; margin-bottom:20px;">
                 <h3>Website PPOB Pro</h3>
                 <p style="color:#666; font-size:0.85rem; margin-bottom:20px;">Panel otomatis topup game, pulsa & tagihan PPOB.</p>
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span style="color:var(--primary); font-weight:800; font-size:1.2rem;">Rp 1.000</span>
-                    <button class="btn" style="width:auto; padding: 10px 20px;" onclick="startOrder('Website PPOB Pro', 1500)">BELI</button>
+                    <span style="color:var(--primary); font-weight:800; font-size:1.2rem;">Rp 150.000</span>
+                    <button class="btn" style="width:auto; padding: 10px 20px;" onclick="startOrder('Website PPOB Pro', 150000)">BELI</button>
                 </div>
             </div>
             <div class="card">
@@ -105,26 +108,24 @@
 
     <section id="form-order">
         <div class="card" style="max-width:500px; margin:auto;">
-            <h2 style="font-family:'Space Grotesk'; margin-bottom:25px;">DETAIL <span>ORDER</span></h2>
+            <h2 style="font-family:'Space Grotesk'; margin-bottom:25px;">ORDER <span>DETAILS</span></h2>
             <input type="text" id="f_project" placeholder="Nama Project / Domain">
             <input type="email" id="f_email" placeholder="Email Aktif">
-            <textarea id="f_note" rows="3" placeholder="Catatan (Opsional)..."></textarea>
+            <textarea id="f_note" rows="3" placeholder="Catatan Tambahan..."></textarea>
             
             <div style="background: rgba(255,255,255,0.03); padding:20px; border-radius:20px; border:1px solid var(--border); margin-bottom:20px;">
-                <p style="font-size:0.7rem; color:#666;">TAGIHAN:</p>
+                <p style="font-size:0.7rem; color:#666;">TOTAL TAGIHAN:</p>
                 <h2 id="orderTotal" style="color:var(--primary); font-family: 'Space Grotesk';">Rp 0</h2>
             </div>
-            <button class="btn" onclick="confirmOrder()">LANJUT KE PEMBAYARAN</button>
+            <button class="btn" onclick="goToPayment()">LANJUT PEMBAYARAN</button>
         </div>
     </section>
 
     <section id="payment-view">
         <div class="card" style="max-width:500px; margin:auto; text-align:center;">
             <h2 style="font-family:'Space Grotesk';">PEMBAYARAN</h2>
-            <h1 id="payPrice" style="color:var(--primary); font-family:'Space Grotesk'; margin: 20px 0; font-size: 2.5rem;">Rp 0</h1>
+            <h1 id="payPrice" style="color:var(--primary); font-family:'Space Grotesk'; margin: 15px 0; font-size: 2.2rem;">Rp 0</h1>
 
-            <p style="font-size:0.8rem; color:#666;">Pilih metode pembayaran manual:</p>
-            
             <div class="pay-grid">
                 <div class="btn-pay" id="btn-dana" onclick="selectPay('dana')">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_danamas.png" alt="DANA">
@@ -137,42 +138,46 @@
             </div>
 
             <div id="payment-instruction">
-                <p id="payMethodTitle" style="font-weight:800; color:var(--primary); font-size:0.9rem; margin-bottom:10px;"></p>
-                
-                <label style="font-size:0.6rem; color:#555;">NOMOR TUJUAN:</p>
+                <p id="payMethodTitle" style="font-weight:800; color:var(--primary); font-size:0.8rem; margin-bottom:10px;"></p>
                 <div class="copy-box">
-                    <span id="payNumber" style="font-weight:800; letter-spacing:1px;">089517604572</span>
+                    <span id="payNumber" style="font-weight:800;">-</span>
                     <span class="copy-btn" onclick="copyText('payNumber')">SALIN</span>
                 </div>
-
-                <label style="font-size:0.6rem; color:#555;">NOMINAL TRANSFER:</p>
-                <div class="copy-box">
-                    <span id="payAmount" style="font-weight:800;">Rp 0</span>
-                    <span class="copy-btn" onclick="copyText('payAmount', true)">SALIN</span>
-                </div>
-
-                <p style="font-size:0.7rem; color:#666; margin-top:10px; line-height:1.4;">
-                    * Silakan transfer manual ke nomor di atas. Jika sudah, klik tombol konfirmasi di bawah.
-                </p>
+                <p style="font-size:0.65rem; color:#666;">Transfer tepat sesuai nominal tagihan di atas.</p>
             </div>
 
             <div class="qris-container" id="qris-area">
                 <img src="https://i.ibb.co.com/zh14S8vp/Kode-QRIS-AXCZYL-STORE-Kesehatan-Olahraga.jpg" class="qris-img">
             </div>
 
-            <button class="btn" style="margin-top:20px;" onclick="confirmToWA()">
-                <i class="fab fa-whatsapp"></i> KONFIRMASI VIA WHATSAPP
+            <button id="finalConfirm" class="btn" style="margin-top:20px;" onclick="sendToTelegram()">
+                <i class="fas fa-check-circle"></i> SAYA SUDAH TRANSFER
             </button>
         </div>
     </section>
 
     <script>
+        const BOT_TOKEN = "8791725696:AAFQYJ4YGxyIju3pVo9OwCzgk5nELS6i61g";
+        const CHAT_ID = "7991305197";
+        
         let currentOrder = { name: "", price: 0 };
+        let history = ['home'];
 
         function showPage(id) {
             document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            window.scrollTo(0,0);
+            
+            // Show/Hide Back Button
+            document.getElementById('backBtn').style.display = (id === 'home') ? 'none' : 'flex';
+            if(history[history.length-1] !== id) history.push(id);
+        }
+
+        function goBack() {
+            if(history.length > 1) {
+                history.pop(); // Remove current
+                let prev = history.pop(); // Get previous
+                showPage(prev);
+            }
         }
 
         function startOrder(name, price) {
@@ -181,59 +186,74 @@
             showPage('form-order');
         }
 
-        function confirmOrder() {
-            if(!document.getElementById('f_project').value) return alert("Isi nama project dulu bang!");
-            document.getElementById('loading-overlay').style.display = 'flex';
+        function goToPayment() {
+            if(!document.getElementById('f_project').value) return alert("Isi nama project!");
             document.getElementById('payPrice').innerText = `Rp ${currentOrder.price.toLocaleString()}`;
-            document.getElementById('payAmount').innerText = `Rp ${currentOrder.price.toLocaleString()}`;
-
-            setTimeout(() => {
-                document.getElementById('loading-overlay').style.display = 'none';
-                showPage('payment-view');
-            }, 1000);
+            showPage('payment-view');
         }
 
         function selectPay(type) {
-            // UI Toggle
             document.querySelectorAll('.btn-pay').forEach(b => b.classList.remove('active'));
             document.getElementById(`btn-${type}`).classList.add('active');
-            
-            // Show Instruction
-            const box = document.getElementById('payment-instruction');
+            document.getElementById('payment-instruction').style.display = 'block';
+            document.getElementById('qris-area').style.display = 'none';
+
             const title = document.getElementById('payMethodTitle');
             const num = document.getElementById('payNumber');
             
-            box.style.display = 'block';
-            document.getElementById('qris-area').style.display = 'none';
-
             if(type === 'dana') {
-                title.innerText = "INTRUKSI TRANSFER DANA";
+                title.innerText = "TRANSFER KE DANA";
                 num.innerText = "089517604572";
             } else {
-                title.innerText = "INTRUKSI TRANSFER GOPAY";
+                title.innerText = "TRANSFER KE GOPAY";
                 num.innerText = "089677040178";
             }
         }
 
-        function copyText(id, isAmount = false) {
-            let val = document.getElementById(id).innerText;
-            if(isAmount) val = val.replace(/[^\d]/g, ''); // Ambil angka doang kalo nominal
-            
+        function copyText(id) {
+            const val = document.getElementById(id).innerText;
             navigator.clipboard.writeText(val);
-            const btn = event.target;
-            btn.innerText = "TERSALIN!";
-            setTimeout(() => btn.innerText = "SALIN", 2000);
+            alert("Berhasil disalin: " + val);
         }
 
-        function confirmToWA() {
+        async function sendToTelegram() {
             const project = document.getElementById('f_project').value;
-            const waMsg = `🚀 *KONFIRMASI PEMBAYARAN - AXCZYL STORE*\n\n` +
-                          `📦 *Produk:* ${currentOrder.name}\n` +
-                          `💰 *Total:* Rp ${currentOrder.price.toLocaleString()}\n` +
-                          `🌐 *Project:* ${project}\n\n` +
-                          `_Saya sudah transfer, tolong dicek bang!_`;
-            window.open(`https://wa.me/6289517604572?text=${encodeURIComponent(waMsg)}`, '_blank');
+            const email = document.getElementById('f_email').value;
+            const note = document.getElementById('f_note').value || "-";
+            const method = document.querySelector('.btn-pay.active')?.id.replace('btn-', '').toUpperCase() || "QRIS/UNKNOWN";
+
+            const message = `🔔 *PESANAN BARU - AXCZYL STORE*\n\n` +
+                            `📦 *Produk:* ${currentOrder.name}\n` +
+                            `💰 *Total:* Rp ${currentOrder.price.toLocaleString()}\n` +
+                            `💳 *Metode:* ${method}\n\n` +
+                            `🌐 *Project:* ${project}\n` +
+                            `📧 *Email:* ${email}\n` +
+                            `📝 *Note:* ${note}\n\n` +
+                            `✅ _User sudah klik tombol konfirmasi transfer._`;
+
+            document.getElementById('loading-overlay').style.display = 'flex';
+            document.getElementById('loading-text').innerText = "SENDING DATA...";
+
+            try {
+                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+                await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message,
+                        parse_mode: "Markdown"
+                    })
+                });
+
+                document.getElementById('loading-overlay').style.display = 'none';
+                alert("PESANAN TERKIRIM!\nTerima kasih, admin akan segera memproses dan menghubungi Anda via Email.");
+                location.reload();
+            } catch (e) {
+                document.getElementById('loading-overlay').style.display = 'none';
+                alert("Gagal mengirim data ke sistem. Hubungi admin manual.");
+            }
         }
     </script>
 </body>
-                </html>
+</html>
