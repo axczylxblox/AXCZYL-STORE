@@ -2,275 +2,219 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AXCZYL STORE | PPOB & DIGITAL SOLUTION</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXCZYL STORE | PRESTIGE DIGITAL</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
-
     <style>
-        :root {
-            --primary: #ff007f;
-            --primary-glow: rgba(255, 0, 127, 0.4);
-            --bg: #030303;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.08);
-            --text: #ffffff;
-            --header-h: 80px;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; }
-
-        /* --- BACKGROUND --- */
-        .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 10%, rgba(255, 0, 127, 0.1) 0%, transparent 60%); z-index: -1; }
-        .grid-pattern { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; opacity: 0.2; mask-image: linear-gradient(to bottom, black, transparent); }
-
-        /* --- HEADER --- */
-        header {
-            width: 100%; height: var(--header-h); padding: 0 7%; 
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(3, 3, 3, 0.7); border-bottom: 1px solid var(--border);
-            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(20px);
-        }
-        .logo { font-family: 'Space Grotesk'; font-size: 1.8rem; font-weight: 800; color: #fff; letter-spacing: -1px; cursor: pointer; }
-        .logo span { color: var(--primary); text-shadow: 0 0 15px var(--primary-glow); }
-
-        /* --- NAVIGATION --- */
-        .nav-menu {
-            position: fixed; top: 0; right: -100%; width: 320px; height: 100vh;
-            background: #080808; flex-direction: column; padding: 80px 40px; transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            border-left: 1px solid var(--border); z-index: 1001; list-style: none;
-        }
-        .nav-menu.active { right: 0; }
-        .nav-menu li { margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-        .nav-menu a { text-decoration: none; color: #fff; font-size: 0.9rem; font-weight: 700; transition: 0.3s; cursor: pointer; display: flex; align-items: center; gap: 15px; text-transform: uppercase; }
-        .nav-menu a:hover { color: var(--primary); padding-left: 10px; }
-        .hamburger { font-size: 1.8rem; color: var(--primary); cursor: pointer; }
-        .close-menu { position: absolute; top: 30px; right: 30px; font-size: 2rem; color: var(--primary); cursor: pointer; }
-
-        /* --- PAGES --- */
-        section { display: none; padding: 40px 7%; min-height: calc(100vh - var(--header-h)); animation: fadeIn 0.8s ease; }
-        section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- CARDS & FORMS --- */
-        .card { background: #0a0a0a; border: 1px solid var(--border); padding: 25px; border-radius: 25px; margin-bottom: 20px; }
-        input, select { width: 100%; padding: 18px; background: #000; border: 1px solid var(--border); border-radius: 15px; color: #fff; margin-bottom: 15px; outline: none; }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
-        .btn-order { background: var(--primary); color: #fff; width: 100%; padding: 14px; border-radius: 15px; border: none; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; text-decoration: none; }
-        .btn-order:hover { transform: scale(1.02); filter: brightness(1.1); box-shadow: 0 0 15px var(--primary-glow); }
-
-        /* --- PRODUCT GRID --- */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
-        .product-card { background: #0a0a0a; border: 1px solid var(--border); border-radius: 25px; overflow: hidden; transition: 0.3s; }
-        .product-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .product-img { width: 100%; height: 160px; object-fit: cover; }
-        .product-info { padding: 20px; }
-
-        /* --- USER INFO BAR --- */
-        .user-bar { background: rgba(255, 0, 127, 0.05); border: 1px solid var(--primary); padding: 15px 25px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        :root { --primary: #ff007f; --bg: #030303; --card: #0a0a0a; --border: rgba(255,255,255,0.08); --text: #fff; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans'; }
+        body { background: var(--bg); color: var(--text); overflow-x: hidden; }
         
-        .back-btn { cursor: pointer; color: var(--primary); font-weight: 800; display: inline-flex; align-items: center; gap: 10px; margin-bottom: 30px; font-size: 0.8rem; border: 1px solid var(--primary); padding: 8px 15px; border-radius: 50px; transition: 0.3s; }
+        /* Background Glow */
+        .glow { position: fixed; top: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% -10%, rgba(255,0,127,0.15), transparent); z-index: -1; }
+        
+        header { padding: 20px 7%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); sticky; top:0; }
+        .logo { font-family: 'Space Grotesk'; font-size: 1.5rem; font-weight: 800; cursor: pointer; }
+        .logo span { color: var(--primary); }
 
-        .status-badge { padding: 4px 10px; border-radius: 5px; font-size: 0.7rem; font-weight: 800; background: var(--primary); color: #fff; }
+        section { display: none; padding: 40px 7%; animation: fadeIn 0.4s ease; }
+        section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Card Styling */
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        
+        /* Form & Inputs */
+        label { display: block; margin-bottom: 8px; font-size: 0.8rem; font-weight: 600; color: #888; }
+        input, select, textarea { width: 100%; padding: 15px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 12px; margin-bottom: 15px; outline: none; }
+        input:focus { border-color: var(--primary); }
+        
+        .btn { background: var(--primary); color: #fff; border: none; padding: 15px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; }
+        .btn:hover { filter: brightness(1.2); box-shadow: 0 0 20px rgba(255,0,127,0.3); }
+        .btn-outline { background: none; border: 1px solid var(--primary); color: var(--primary); }
+
+        /* Payment Detail */
+        .payment-box { text-align: center; border: 2px dashed var(--primary); padding: 20px; border-radius: 20px; margin: 20px 0; }
+        .qris-img { width: 100%; max-width: 250px; border-radius: 10px; margin: 10px 0; }
+        
+        .status-pill { padding: 5px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; }
+        .pending { background: #ffaa00; color: #000; }
+        .success { background: #00ff88; color: #000; }
     </style>
 </head>
 <body>
-
-    <div class="bg-glow"></div>
-    <div class="grid-pattern"></div>
-
+    <div class="glow"></div>
+    
     <header>
         <div class="logo" onclick="showPage('home')">AXCZYL<span>STORE</span></div>
-        <div style="display: flex; gap: 15px; align-items: center;">
-            <div id="authBtnGroup">
-                <button class="btn-order" onclick="showPage('auth-page')" style="padding: 8px 15px; font-size: 0.8rem;">LOGIN</button>
-            </div>
-            <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars-staggered"></i></div>
+        <div id="navRight">
+            <button class="btn" style="padding: 8px 20px;" onclick="showPage('auth-page')">LOGIN</button>
         </div>
     </header>
 
-    <ul class="nav-menu" id="navMenu">
-        <div class="close-menu" onclick="toggleMenu()"><i class="fas fa-times"></i></div>
-        <li><a onclick="showPage('home')"><i class="fas fa-home"></i> Beranda</a></li>
-        <li><a onclick="showPage('deposit-page')"><i class="fas fa-wallet"></i> Isi Saldo</a></li>
-        <li><a onclick="showPage('history-page')"><i class="fas fa-history"></i> Riwayat Pesanan</a></li>
-        <li id="adminMenu" style="display: none;"><a onclick="showPage('admin-panel')"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
-        <li><a onclick="logout()"><i class="fas fa-sign-out-alt"></i> Keluar</a></li>
-    </ul>
-
     <section id="home" class="active">
-        <div id="loggedInView" style="display: none;">
-            <div class="user-bar">
+        <div id="userHeader" style="display:none; margin-bottom: 30px;">
+            <div class="card" style="display:flex; justify-content:space-between; align-items:center; background: linear-gradient(90deg, #0a0a0a, #1a0a12);">
                 <div>
-                    <p style="font-size: 0.8rem; color: #888;">Selamat Datang,</p>
-                    <h3 id="displayUsername">User</h3>
+                    <p style="color:#888; font-size:0.8rem;">Saldo Akun</p>
+                    <h2 id="uBalance" style="color:var(--primary);">Rp 0</h2>
                 </div>
-                <div style="text-align: right;">
-                    <p style="font-size: 0.8rem; color: #888;">Saldo Anda:</p>
-                    <h3 id="displayBalance" style="color: var(--primary);">Rp 0</h3>
-                </div>
+                <button class="btn" style="width:auto; padding: 10px 20px;" onclick="showPage('deposit-page')">TOP UP</button>
             </div>
         </div>
 
-        <div style="text-align: center; margin-bottom: 40px;">
-            <h1 style="font-family: 'Space Grotesk'; font-size: 3rem;">DIGITAL <span>SOLUTION</span></h1>
-            <p style="color: #666;">Topup Game & Jasa Pembuatan Website/Bot Terpercaya.</p>
+        <h2 style="margin-bottom:20px; font-family:'Space Grotesk';">CATALOG <span>SERVICES</span></h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://i.ibb.co.com/xKSVXqmb/aplikasi-kiosbank-ppob-mobil-desktop.jpg" style="width:100%; border-radius:12px; margin-bottom:15px;">
+                <h3>Website PPOB</h3>
+                <p style="color:#666; font-size:0.9rem; margin: 10px 0;">Sistem otomatis topup game & pulsa API Digiflazz/VIP.</p>
+                <h4 style="color:var(--primary); margin-bottom:15px;">Rp 150,000</h4>
+                <button class="btn" onclick="openOrder('Website PPOB', 150000)">PESAN SEKARANG</button>
+            </div>
+            <div class="card">
+                <img src="https://i.ibb.co.com/Xx2qGgMY/images-18.jpg" style="width:100%; border-radius:12px; margin-bottom:15px;">
+                <h3>Bot Telegram Store</h3>
+                <p style="color:#666; font-size:0.9rem; margin: 10px 0;">Bot jualan otomatis 24 jam via Telegram payment.</p>
+                <h4 style="color:var(--primary); margin-bottom:15px;">Rp 50,000</h4>
+                <button class="btn" onclick="openOrder('Bot Telegram Store', 50000)">PESAN SEKARANG</button>
+            </div>
         </div>
+    </section>
 
-        <div class="product-grid">
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/xKSVXqmb/aplikasi-kiosbank-ppob-mobil-desktop.jpg" class="product-img">
-                <div class="product-info">
-                    <h3>Website PPOB</h3>
-                    <p style="font-size: 0.8rem; color: #666; margin-bottom: 15px;">Mulai dari Rp 150.000</p>
-                    <button class="btn-order" onclick="processOrder('Website PPOB', 150000)">BELI SEKARANG</button>
-                </div>
+    <section id="order-form-page">
+        <div onclick="showPage('home')" style="cursor:pointer; color:var(--primary); margin-bottom:20px;"><i class="fas fa-arrow-left"></i> Kembali</div>
+        <div class="card" style="max-width:600px; margin:auto;">
+            <h2 style="font-family:'Space Grotesk'; margin-bottom:20px;">DETAIL <span>PESANAN</span></h2>
+            <div style="background:#000; padding:15px; border-radius:10px; margin-bottom:20px; border-left: 4px solid var(--primary);">
+                <p id="orderName" style="font-weight:800;"></p>
+                <p id="orderPrice" style="color:var(--primary); font-size:0.9rem;"></p>
             </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/Xx2qGgMY/images-18.jpg" class="product-img">
-                <div class="product-info">
-                    <h3>Bot Telegram Store</h3>
-                    <p style="font-size: 0.8rem; color: #666; margin-bottom: 15px;">Mulai dari Rp 50.000</p>
-                    <button class="btn-order" onclick="processOrder('Bot Tele Store', 50000)">BELI SEKARANG</button>
-                </div>
+            
+            <label>Nama Domain / Judul Project</label>
+            <input type="text" id="f_title" placeholder="Contoh: axczylstore.com">
+            
+            <label>Catatan Tambahan (Warna, Fitur, dll)</label>
+            <textarea id="f_note" rows="3" placeholder="Contoh: Mau warna neon biru, tambah menu deposit..."></textarea>
+            
+            <label>Metode Pembayaran</label>
+            <select id="f_pay">
+                <option value="saldo">Potong Saldo Akun</option>
+                <option value="direct">Direct Transfer (QRIS/E-Wallet)</option>
+            </select>
+            
+            <button class="btn" onclick="submitOrder()">LANJUT KE PEMBAYARAN</button>
+        </div>
+    </section>
+
+    <section id="payment-page">
+        <div class="card" style="max-width:500px; margin:auto; text-align:center;">
+            <h3>KONFIRMASI PEMBAYARAN</h3>
+            <div class="payment-box">
+                <p>Silakan Scan QRIS di Bawah:</p>
+                <img src="https://i.ibb.co.com/zh14S8vp/Kode-QRIS-AXCZYL-STORE-Kesehatan-Olahraga.jpg" class="qris-img">
+                <p style="font-size:0.8rem; color:#888;">AXCZYL STORE</p>
             </div>
+            <div style="text-align:left; margin-bottom:20px;">
+                <p><strong>DANA:</strong> 089517604572</p>
+                <p><strong>GOPAY:</strong> 089677040178</p>
+            </div>
+            <button class="btn" onclick="confirmPayment()">SAYA SUDAH BAYAR</button>
         </div>
     </section>
 
     <section id="auth-page">
-        <div class="card" style="max-width: 450px; margin: 40px auto; text-align: center;">
-            <h2 id="authTitle" style="font-family: 'Space Grotesk'; margin-bottom: 25px;">USER <span>LOGIN</span></h2>
-            <input type="text" id="authUsername" placeholder="Username">
-            <input type="password" id="authPassword" placeholder="Password">
-            <button class="btn-order" onclick="handleAuth()">KONFIRMASI</button>
-            <p style="margin-top: 20px; font-size: 0.8rem; color: #555; cursor: pointer;" onclick="toggleAuth()">Belum punya akun? Daftar Sekarang</p>
-        </div>
-    </section>
-
-    <section id="deposit-page">
-        <div class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> KEMBALI</div>
-        <h2>ISI <span>SALDO</span></h2>
-        <div class="card" style="max-width: 600px; margin-top: 20px;">
-            <label>Pilih Metode Pembayaran:</label>
-            <select id="depoMethod">
-                <option value="QRIS">QRIS ALL PAYMENT (Otomatis)</option>
-                <option value="DANA">DANA - 089517604572</option>
-            </select>
-            <label>Nominal Topup:</label>
-            <input type="number" id="depoAmount" placeholder="Contoh: 50000">
-            <button class="btn-order" onclick="alert('Permintaan deposit dikirim! Segera hubungi admin.')">TOPUP SEKARANG</button>
+        <div class="card" style="max-width:400px; margin:auto;">
+            <h2 style="text-align:center; margin-bottom:20px;">MEMBER <span>LOGIN</span></h2>
+            <input type="text" id="l_user" placeholder="Username">
+            <input type="password" id="l_pass" placeholder="Password">
+            <button class="btn" onclick="login()">LOGIN</button>
+            <p style="text-align:center; margin-top:15px; font-size:0.8rem; color:#444;">Default Admin: admin | axczylscary1</p>
         </div>
     </section>
 
     <section id="history-page">
-        <div class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> KEMBALI</div>
-        <h2>RIWAYAT <span>PESANAN</span></h2>
-        <div id="orderHistoryList" style="margin-top: 20px;">
-            <p style="color: #444; text-align: center;">Belum ada riwayat transaksi.</p>
+        <h2 style="margin-bottom:20px;">RIWAYAT <span>TRANSAKSI</span></h2>
+        <div id="historyList">
+            <p style="color:#333;">Belum ada pesanan.</p>
         </div>
-    </section>
-
-    <section id="admin-panel">
-        <div class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> KEMBALI</div>
-        <h2>ADMIN <span>DASHBOARD</span></h2>
-        <div class="product-grid" style="grid-template-columns: repeat(2, 1fr);">
-            <div class="card"><h3>Total User</h3><p>1 User Aktif</p></div>
-            <div class="card"><h3>Total Penjualan</h3><p>Rp 0</p></div>
-        </div>
-        <h3 style="margin-top: 30px;">Daftar Deposit Masuk</h3>
-        <div class="card" style="font-size: 0.8rem; color: #888; text-align: center;">Tidak ada antrian deposit.</div>
     </section>
 
     <script>
-        let currentUser = null;
-        let isLoginMode = true;
+        let user = null;
+        let tempOrder = {};
 
-        function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
-        
         function showPage(id) {
             document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            document.getElementById('navMenu').classList.remove('active');
-            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        function toggleAuth() {
-            isLoginMode = !isLoginMode;
-            document.getElementById('authTitle').innerHTML = isLoginMode ? "USER <span>LOGIN</span>" : "USER <span>REGISTER</span>";
-        }
-
-        async function handleAuth() {
-            const u = document.getElementById('authUsername').value;
-            const p = document.getElementById('authPassword').value;
-
-            if(!u || !p) return alert("Isi username & password!");
-
-            try {
-                const res = await fetch('/api/auth', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ username: u, password: p })
-                });
-                const data = await res.json();
-
-                if(data.success) {
-                    currentUser = data.user;
-                    updateUI();
-                    alert("Berhasil masuk! Selamat datang " + currentUser.username);
-                    showPage('home');
-                } else {
-                    alert("Login Gagal: " + data.message);
-                }
-            } catch (e) {
-                alert("Error connecting to Serverless API.");
-            }
-        }
-
-        function updateUI() {
-            if(currentUser) {
-                document.getElementById('authBtnGroup').innerHTML = `<span style="color:var(--primary); font-weight:800;">${currentUser.username}</span>`;
-                document.getElementById('loggedInView').style.display = 'block';
-                document.getElementById('displayUsername').innerText = currentUser.username;
-                document.getElementById('displayBalance').innerText = `Rp ${currentUser.balance.toLocaleString()}`;
-                
-                if(currentUser.role === 'admin') {
-                    document.getElementById('adminMenu').style.display = 'block';
-                }
-            }
-        }
-
-        async function processOrder(name, price) {
-            if(!currentUser) {
-                alert("Login dulu bang!");
-                return showPage('auth-page');
-            }
-
-            const res = await fetch('/api/order', {
+        async function login() {
+            const u = document.getElementById('l_user').value;
+            const p = document.getElementById('l_pass').value;
+            const res = await fetch('/api/auth', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ username: currentUser.username, product: name, price: price })
+                body: JSON.stringify({ username: u, password: p })
             });
-            const result = await res.json();
-
-            if(result.success) {
-                alert("Pesanan " + name + " Berhasil Dibuat!");
-                const historyList = document.getElementById('orderHistoryList');
-                if(historyList.querySelector('p')) historyList.innerHTML = '';
-                
-                const item = document.createElement('div');
-                item.className = 'card';
-                item.style.display = 'flex';
-                item.style.justifyContent = 'space-between';
-                item.innerHTML = `<div><b>${result.data.product}</b><br><small>${result.data.date}</small></div> <span class="status-badge">SUCCESS</span>`;
-                historyList.prepend(item);
+            const data = await res.json();
+            if(data.success) {
+                user = data.user;
+                document.getElementById('navRight').innerHTML = `<b style="color:var(--primary); cursor:pointer;" onclick="showPage('history-page')">${user.username.toUpperCase()}</b>`;
+                document.getElementById('userHeader').style.display = 'block';
+                document.getElementById('uBalance').innerText = `Rp ${user.balance.toLocaleString()}`;
+                showPage('home');
+            } else {
+                alert("Gagal login!");
             }
         }
 
-        function logout() {
-            location.reload();
+        function openOrder(name, price) {
+            if(!user) return showPage('auth-page');
+            tempOrder = { name, price };
+            document.getElementById('orderName').innerText = name;
+            document.getElementById('orderPrice').innerText = `Total: Rp ${price.toLocaleString()}`;
+            showPage('order-form-page');
+        }
+
+        function submitOrder() {
+            const payType = document.getElementById('f_pay').value;
+            if(payType === 'direct') {
+                showPage('payment-page');
+            } else {
+                if(user.balance < tempOrder.price) return alert("Saldo tidak cukup! Silakan Top Up.");
+                confirmPayment();
+            }
+        }
+
+        function confirmPayment() {
+            const title = document.getElementById('f_title').value;
+            const note = document.getElementById('f_note').value;
+            
+            const msg = `🚀 *PESANAN BARU - AXCZYL STORE*\n\n` +
+                        `👤 User: ${user.username}\n` +
+                        `📦 Produk: ${tempOrder.name}\n` +
+                        `💰 Harga: Rp ${tempOrder.price.toLocaleString()}\n` +
+                        `🌐 Domain/Title: ${title}\n` +
+                        `📝 Note: ${note}\n\n` +
+                        `Mohon segera diproses admin!`;
+            
+            window.open(`https://wa.me/6289517604572?text=${encodeURIComponent(msg)}`, '_blank');
+            
+            // Add to history UI
+            const h = document.getElementById('historyList');
+            if(h.querySelector('p')) h.innerHTML = '';
+            const item = document.createElement('div');
+            item.className = 'card';
+            item.innerHTML = `<div style="display:flex; justify-content:space-between;">
+                <b>${tempOrder.name}</b> <span class="status-pill pending">Diproses</span>
+            </div><p style="font-size:0.8rem; color:#555; margin-top:5px;">${new Date().toLocaleString()}</p>`;
+            h.prepend(item);
+            
+            showPage('home');
         }
     </script>
 </body>
-  </html>
+</html>
