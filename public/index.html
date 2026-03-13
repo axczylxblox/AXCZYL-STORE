@@ -2,219 +2,246 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AXCZYL STORE | PRESTIGE DIGITAL</title>
+    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
-    <style>
-        :root { --primary: #ff007f; --bg: #030303; --card: #0a0a0a; --border: rgba(255,255,255,0.08); --text: #fff; }
-        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Plus Jakarta Sans'; }
-        body { background: var(--bg); color: var(--text); overflow-x: hidden; }
-        
-        /* Background Glow */
-        .glow { position: fixed; top: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% -10%, rgba(255,0,127,0.15), transparent); z-index: -1; }
-        
-        header { padding: 20px 7%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); sticky; top:0; }
-        .logo { font-family: 'Space Grotesk'; font-size: 1.5rem; font-weight: 800; cursor: pointer; }
-        .logo span { color: var(--primary); }
 
-        section { display: none; padding: 40px 7%; animation: fadeIn 0.4s ease; }
+    <style>
+        :root {
+            --primary: #ff007f;
+            --primary-glow: rgba(255, 0, 127, 0.4);
+            --bg: #030303;
+            --card: #0a0a0a;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+
+        /* --- BACKGROUND --- */
+        .glow-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% -10%, rgba(255, 0, 127, 0.15), transparent 70%); z-index: -1; }
+        
+        /* --- HEADER --- */
+        header {
+            width: 100%; padding: 20px 7%; 
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(3, 3, 3, 0.8); border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px);
+        }
+        .logo { font-family: 'Space Grotesk'; font-size: 1.5rem; font-weight: 800; cursor: pointer; letter-spacing: -1px; }
+        .logo span { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+
+        /* --- PAGES LOGIC --- */
+        section { display: none; padding: 30px 7%; min-height: 80vh; animation: fadeIn 0.4s ease; }
         section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Card Styling */
+        /* --- UI COMPONENTS --- */
         .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         
-        /* Form & Inputs */
-        label { display: block; margin-bottom: 8px; font-size: 0.8rem; font-weight: 600; color: #888; }
-        input, select, textarea { width: 100%; padding: 15px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 12px; margin-bottom: 15px; outline: none; }
-        input:focus { border-color: var(--primary); }
+        label { display: block; margin-bottom: 8px; font-size: 0.8rem; font-weight: 800; color: #888; text-transform: uppercase; }
+        input, select, textarea { width: 100%; padding: 15px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 12px; margin-bottom: 15px; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
         
-        .btn { background: var(--primary); color: #fff; border: none; padding: 15px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; }
-        .btn:hover { filter: brightness(1.2); box-shadow: 0 0 20px rgba(255,0,127,0.3); }
-        .btn-outline { background: none; border: 1px solid var(--primary); color: var(--primary); }
+        .btn { background: var(--primary); color: #fff; border: none; padding: 15px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn:hover { filter: brightness(1.2); transform: translateY(-2px); }
+        .btn-sm { padding: 8px 15px; font-size: 0.8rem; width: auto; }
 
-        /* Payment Detail */
-        .payment-box { text-align: center; border: 2px dashed var(--primary); padding: 20px; border-radius: 20px; margin: 20px 0; }
-        .qris-img { width: 100%; max-width: 250px; border-radius: 10px; margin: 10px 0; }
-        
-        .status-pill { padding: 5px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; }
-        .pending { background: #ffaa00; color: #000; }
-        .success { background: #00ff88; color: #000; }
+        /* Payment QRIS */
+        .qris-container { text-align: center; border: 2px dashed var(--primary); padding: 20px; border-radius: 20px; margin: 20px 0; background: #000; }
+        .qris-img { width: 100%; max-width: 250px; border-radius: 10px; border: 5px solid #fff; }
+
+        .status-pill { padding: 4px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; }
+        .pending { background: rgba(255, 170, 0, 0.2); color: #ffaa00; border: 1px solid #ffaa00; }
+
+        /* Mobile Nav */
+        #mobileMenu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: #050505; z-index: 2000; padding: 50px 30px; transition: 0.4s; border-left: 1px solid var(--border); }
+        #mobileMenu.active { right: 0; }
+        #mobileMenu a { display: block; color: #fff; text-decoration: none; margin-bottom: 25px; font-weight: 800; font-size: 1.1rem; }
     </style>
 </head>
 <body>
-    <div class="glow"></div>
-    
+
+    <div class="glow-bg"></div>
+
     <header>
         <div class="logo" onclick="showPage('home')">AXCZYL<span>STORE</span></div>
-        <div id="navRight">
-            <button class="btn" style="padding: 8px 20px;" onclick="showPage('auth-page')">LOGIN</button>
+        <div id="navAction">
+            <button class="btn btn-sm" onclick="showPage('login-page')">LOGIN</button>
         </div>
+        <div onclick="toggleMenu()" style="cursor:pointer; color:var(--primary); font-size:1.5rem;"><i class="fas fa-bars-staggered"></i></div>
     </header>
 
+    <div id="mobileMenu">
+        <div onclick="toggleMenu()" style="position:absolute; top:20px; right:20px; font-size:1.5rem;"><i class="fas fa-times"></i></div>
+        <a onclick="showPage('home')">BERANDA</a>
+        <a onclick="showPage('deposit-page')">ISI SALDO</a>
+        <a onclick="showPage('history-page')">RIWAYAT</a>
+        <a href="https://wa.me/6289517604572" target="_blank">HUBUNGI ADMIN</a>
+        <a onclick="location.reload()" style="color:var(--primary); margin-top:50px;">LOGOUT</a>
+    </div>
+
     <section id="home" class="active">
-        <div id="userHeader" style="display:none; margin-bottom: 30px;">
-            <div class="card" style="display:flex; justify-content:space-between; align-items:center; background: linear-gradient(90deg, #0a0a0a, #1a0a12);">
+        <div id="userDash" style="display:none;" class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
                 <div>
-                    <p style="color:#888; font-size:0.8rem;">Saldo Akun</p>
-                    <h2 id="uBalance" style="color:var(--primary);">Rp 0</h2>
+                    <p style="font-size:0.7rem; color:#888;">SALDO AKUN</p>
+                    <h2 id="uBalance" style="color:var(--primary); font-family:'Space Grotesk';">Rp 0</h2>
                 </div>
-                <button class="btn" style="width:auto; padding: 10px 20px;" onclick="showPage('deposit-page')">TOP UP</button>
+                <button class="btn btn-sm" onclick="showPage('deposit-page')">TOP UP</button>
             </div>
         </div>
 
-        <h2 style="margin-bottom:20px; font-family:'Space Grotesk';">CATALOG <span>SERVICES</span></h2>
+        <h2 style="font-family:'Space Grotesk'; margin: 20px 0;">LAYANAN <span>KAMI</span></h2>
         <div class="grid">
             <div class="card">
-                <img src="https://i.ibb.co.com/xKSVXqmb/aplikasi-kiosbank-ppob-mobil-desktop.jpg" style="width:100%; border-radius:12px; margin-bottom:15px;">
+                <img src="https://i.ibb.co.com/xKSVXqmb/aplikasi-kiosbank-ppob-mobil-desktop.jpg" style="width:100%; border-radius:15px; margin-bottom:15px;">
                 <h3>Website PPOB</h3>
-                <p style="color:#666; font-size:0.9rem; margin: 10px 0;">Sistem otomatis topup game & pulsa API Digiflazz/VIP.</p>
+                <p style="color:#666; font-size:0.8rem; margin:10px 0;">Otomatisasi Topup Game & Pulsa (API Ready).</p>
                 <h4 style="color:var(--primary); margin-bottom:15px;">Rp 150,000</h4>
-                <button class="btn" onclick="openOrder('Website PPOB', 150000)">PESAN SEKARANG</button>
+                <button class="btn" onclick="openOrder('Website PPOB', 150000)"><i class="fas fa-shopping-cart"></i> PESAN</button>
             </div>
             <div class="card">
-                <img src="https://i.ibb.co.com/Xx2qGgMY/images-18.jpg" style="width:100%; border-radius:12px; margin-bottom:15px;">
+                <img src="https://i.ibb.co.com/Xx2qGgMY/images-18.jpg" style="width:100%; border-radius:15px; margin-bottom:15px;">
                 <h3>Bot Telegram Store</h3>
-                <p style="color:#666; font-size:0.9rem; margin: 10px 0;">Bot jualan otomatis 24 jam via Telegram payment.</p>
+                <p style="color:#666; font-size:0.8rem; margin:10px 0;">Bot Jualan Digital 24 Jam Non-Stop.</p>
                 <h4 style="color:var(--primary); margin-bottom:15px;">Rp 50,000</h4>
-                <button class="btn" onclick="openOrder('Bot Telegram Store', 50000)">PESAN SEKARANG</button>
+                <button class="btn" onclick="openOrder('Bot Telegram Store', 50000)"><i class="fas fa-shopping-cart"></i> PESAN</button>
             </div>
         </div>
     </section>
 
-    <section id="order-form-page">
-        <div onclick="showPage('home')" style="cursor:pointer; color:var(--primary); margin-bottom:20px;"><i class="fas fa-arrow-left"></i> Kembali</div>
-        <div class="card" style="max-width:600px; margin:auto;">
-            <h2 style="font-family:'Space Grotesk'; margin-bottom:20px;">DETAIL <span>PESANAN</span></h2>
-            <div style="background:#000; padding:15px; border-radius:10px; margin-bottom:20px; border-left: 4px solid var(--primary);">
-                <p id="orderName" style="font-weight:800;"></p>
-                <p id="orderPrice" style="color:var(--primary); font-size:0.9rem;"></p>
+    <section id="order-form">
+        <div class="card" style="max-width:500px; margin:auto;">
+            <h2 style="font-family:'Space Grotesk'; margin-bottom:20px;">FORM <span>PESANAN</span></h2>
+            <div style="background:#000; padding:15px; border-radius:10px; border-left:4px solid var(--primary); margin-bottom:20px;">
+                <p id="targetName" style="font-weight:800;"></p>
+                <p id="targetPrice" style="color:var(--primary); font-size:0.9rem;"></p>
             </div>
             
-            <label>Nama Domain / Judul Project</label>
-            <input type="text" id="f_title" placeholder="Contoh: axczylstore.com">
+            <label>Domain / Nama Project</label>
+            <input type="text" id="f_title" placeholder="contoh: axczylstore.com">
             
-            <label>Catatan Tambahan (Warna, Fitur, dll)</label>
-            <textarea id="f_note" rows="3" placeholder="Contoh: Mau warna neon biru, tambah menu deposit..."></textarea>
+            <label>Catatan (Opsional)</label>
+            <textarea id="f_note" rows="3" placeholder="Warna neon biru, tambah menu..."></textarea>
             
-            <label>Metode Pembayaran</label>
-            <select id="f_pay">
+            <label>Metode Bayar</label>
+            <select id="f_method">
+                <option value="direct">QRIS / E-Wallet (Direct)</option>
                 <option value="saldo">Potong Saldo Akun</option>
-                <option value="direct">Direct Transfer (QRIS/E-Wallet)</option>
             </select>
             
-            <button class="btn" onclick="submitOrder()">LANJUT KE PEMBAYARAN</button>
+            <button class="btn" onclick="processPayment()">LANJUT BAYAR</button>
         </div>
     </section>
 
     <section id="payment-page">
         <div class="card" style="max-width:500px; margin:auto; text-align:center;">
-            <h3>KONFIRMASI PEMBAYARAN</h3>
-            <div class="payment-box">
-                <p>Silakan Scan QRIS di Bawah:</p>
+            <h3>SCAN QRIS PEMBAYARAN</h3>
+            <div class="qris-container">
                 <img src="https://i.ibb.co.com/zh14S8vp/Kode-QRIS-AXCZYL-STORE-Kesehatan-Olahraga.jpg" class="qris-img">
-                <p style="font-size:0.8rem; color:#888;">AXCZYL STORE</p>
+                <p style="margin-top:10px; font-weight:800;">AXCZYL STORE</p>
             </div>
-            <div style="text-align:left; margin-bottom:20px;">
-                <p><strong>DANA:</strong> 089517604572</p>
-                <p><strong>GOPAY:</strong> 089677040178</p>
+            <div style="text-align:left; font-size:0.9rem; margin-bottom:20px;">
+                <p><i class="fas fa-wallet" style="color:var(--primary);"></i> DANA: <b>089517604572</b></p>
+                <p><i class="fas fa-wallet" style="color:var(--primary);"></i> GOPAY: <b>089677040178</b></p>
             </div>
-            <button class="btn" onclick="confirmPayment()">SAYA SUDAH BAYAR</button>
+            <button class="btn" onclick="finishOrder()"><i class="fab fa-whatsapp"></i> KONFIRMASI KE WA</button>
         </div>
     </section>
 
-    <section id="auth-page">
+    <section id="login-page">
         <div class="card" style="max-width:400px; margin:auto;">
-            <h2 style="text-align:center; margin-bottom:20px;">MEMBER <span>LOGIN</span></h2>
+            <h2 style="text-align:center; margin-bottom:25px;">MEMBER <span>LOGIN</span></h2>
             <input type="text" id="l_user" placeholder="Username">
             <input type="password" id="l_pass" placeholder="Password">
-            <button class="btn" onclick="login()">LOGIN</button>
-            <p style="text-align:center; margin-top:15px; font-size:0.8rem; color:#444;">Default Admin: admin | axczylscary1</p>
+            <button class="btn" onclick="login()">MASUK SEKARANG</button>
         </div>
     </section>
 
     <section id="history-page">
-        <h2 style="margin-bottom:20px;">RIWAYAT <span>TRANSAKSI</span></h2>
-        <div id="historyList">
-            <p style="color:#333;">Belum ada pesanan.</p>
-        </div>
+        <h2 style="margin-bottom:20px;">RIWAYAT <span>ORDER</span></h2>
+        <div id="hList"><p style="color:#444;">Belum ada pesanan.</p></div>
     </section>
 
     <script>
-        let user = null;
-        let tempOrder = {};
+        let userData = null;
+        let activeOrder = {};
+
+        function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('active'); }
 
         function showPage(id) {
             document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            const target = document.getElementById(id);
+            if(target) target.classList.add('active');
+            document.getElementById('mobileMenu').classList.remove('active');
+            window.scrollTo(0,0);
         }
 
         async function login() {
             const u = document.getElementById('l_user').value;
             const p = document.getElementById('l_pass').value;
-            const res = await fetch('/api/auth', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ username: u, password: p })
-            });
-            const data = await res.json();
-            if(data.success) {
-                user = data.user;
-                document.getElementById('navRight').innerHTML = `<b style="color:var(--primary); cursor:pointer;" onclick="showPage('history-page')">${user.username.toUpperCase()}</b>`;
-                document.getElementById('userHeader').style.display = 'block';
-                document.getElementById('uBalance').innerText = `Rp ${user.balance.toLocaleString()}`;
-                showPage('home');
-            } else {
-                alert("Gagal login!");
-            }
+            try {
+                const res = await fetch('/api/auth', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ username: u, password: p })
+                });
+                const data = await res.json();
+                if(data.success) {
+                    userData = data.user;
+                    document.getElementById('navAction').innerHTML = `<b style="color:var(--primary)">${userData.username.toUpperCase()}</b>`;
+                    document.getElementById('userDash').style.display = 'block';
+                    document.getElementById('uBalance').innerText = `Rp ${userData.balance.toLocaleString()}`;
+                    showPage('home');
+                } else { alert("Login Gagal!"); }
+            } catch(e) { alert("API Error. Pastikan folder /api/auth.js sudah diupload."); }
         }
 
         function openOrder(name, price) {
-            if(!user) return showPage('auth-page');
-            tempOrder = { name, price };
-            document.getElementById('orderName').innerText = name;
-            document.getElementById('orderPrice').innerText = `Total: Rp ${price.toLocaleString()}`;
-            showPage('order-form-page');
+            if(!userData) return showPage('login-page');
+            activeOrder = { name, price };
+            document.getElementById('targetName').innerText = name;
+            document.getElementById('targetPrice').innerText = `Total Harga: Rp ${price.toLocaleString()}`;
+            showPage('order-form');
         }
 
-        function submitOrder() {
-            const payType = document.getElementById('f_pay').value;
-            if(payType === 'direct') {
-                showPage('payment-page');
-            } else {
-                if(user.balance < tempOrder.price) return alert("Saldo tidak cukup! Silakan Top Up.");
-                confirmPayment();
+        function processPayment() {
+            const method = document.getElementById('f_method').value;
+            if(method === 'saldo' && userData.balance < activeOrder.price) {
+                return alert("Saldo Kurang!");
             }
+            if(method === 'direct') return showPage('payment-page');
+            finishOrder();
         }
 
-        function confirmPayment() {
+        function finishOrder() {
             const title = document.getElementById('f_title').value;
             const note = document.getElementById('f_note').value;
+            if(!title) return alert("Isi Domain/Nama Project dulu!");
+
+            const waMsg = `🚀 *PESANAN BARU - AXCZYL STORE*\n\n` +
+                          `👤 User: ${userData.username}\n` +
+                          `📦 Produk: ${activeOrder.name}\n` +
+                          `💰 Total: Rp ${activeOrder.price.toLocaleString()}\n` +
+                          `🌐 Project: ${title}\n` +
+                          `📝 Note: ${note}\n\n` +
+                          `*Tolong segera diproses admin!*`;
             
-            const msg = `🚀 *PESANAN BARU - AXCZYL STORE*\n\n` +
-                        `👤 User: ${user.username}\n` +
-                        `📦 Produk: ${tempOrder.name}\n` +
-                        `💰 Harga: Rp ${tempOrder.price.toLocaleString()}\n` +
-                        `🌐 Domain/Title: ${title}\n` +
-                        `📝 Note: ${note}\n\n` +
-                        `Mohon segera diproses admin!`;
-            
-            window.open(`https://wa.me/6289517604572?text=${encodeURIComponent(msg)}`, '_blank');
-            
-            // Add to history UI
-            const h = document.getElementById('historyList');
-            if(h.querySelector('p')) h.innerHTML = '';
-            const item = document.createElement('div');
-            item.className = 'card';
-            item.innerHTML = `<div style="display:flex; justify-content:space-between;">
-                <b>${tempOrder.name}</b> <span class="status-pill pending">Diproses</span>
-            </div><p style="font-size:0.8rem; color:#555; margin-top:5px;">${new Date().toLocaleString()}</p>`;
-            h.prepend(item);
-            
+            window.open(`https://wa.me/6289517604572?text=${encodeURIComponent(waMsg)}`, '_blank');
+
+            const hList = document.getElementById('hList');
+            if(hList.querySelector('p')) hList.innerHTML = '';
+            const div = document.createElement('div');
+            div.className = 'card';
+            div.innerHTML = `<div style="display:flex; justify-content:space-between;"><b>${activeOrder.name}</b> <span class="status-pill pending">Pending</span></div><p style="font-size:0.7rem; color:#555; margin-top:5px;">${new Date().toLocaleString()}</p>`;
+            hList.prepend(div);
             showPage('home');
         }
     </script>
 </body>
-</html>
+            </html>
