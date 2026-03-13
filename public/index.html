@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AXCZYL STORE | PRESTIGE GATEWAY</title>
+    <title>AXCZYL STORE | PREMIUM GATEWAY</title>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
@@ -28,7 +28,7 @@
             background: rgba(3, 3, 3, 0.8); border-bottom: 1px solid var(--border);
             position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px);
         }
-        .logo { font-family: 'Space Grotesk'; font-size: 1.5rem; font-weight: 800; cursor: pointer; letter-spacing: -1px; }
+        .logo { font-family: 'Space Grotesk'; font-size: 1.5rem; font-weight: 800; cursor: pointer; }
         .logo span { color: var(--primary); }
 
         section { display: none; padding: 30px 7%; animation: fadeIn 0.4s ease-out; }
@@ -38,25 +38,27 @@
         .card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 25px; margin-bottom: 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         
-        input, textarea { width: 100%; padding: 16px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 16px; margin-bottom: 15px; outline: none; transition: 0.3s; }
+        input, textarea { width: 100%; padding: 16px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 16px; margin-bottom: 15px; outline: none; }
         input:focus { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
         
         .btn { background: var(--primary); color: #fff; border: none; padding: 16px; border-radius: 16px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
         .btn:active { transform: scale(0.95); }
         
+        /* --- PAYMENT BUTTONS --- */
         .pay-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
         .btn-pay { background: #111; border: 1px solid var(--border); border-radius: 16px; padding: 15px; cursor: pointer; transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .btn-pay:hover { border-color: var(--primary); background: rgba(255, 0, 127, 0.05); }
-        .btn-pay img { height: 20px; filter: grayscale(1) brightness(2); }
-        .btn-pay:hover img { filter: none; }
+        .btn-pay.active { border-color: var(--primary); background: rgba(255, 0, 127, 0.1); }
+        .btn-pay img { height: 22px; }
 
-        .qris-container { background: #fff; padding: 15px; border-radius: 20px; display: inline-block; margin: 20px 0; position: relative; }
+        /* --- INSTRUCTION BOX --- */
+        #payment-instruction { display: none; margin-top: 20px; text-align: left; background: #000; border: 1px solid var(--primary); border-radius: 20px; padding: 20px; animation: slideDown 0.3s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .copy-box { display: flex; justify-content: space-between; align-items: center; background: #111; padding: 12px 15px; border-radius: 12px; margin: 10px 0; border: 1px solid #222; }
+        .copy-btn { color: var(--primary); font-size: 0.8rem; font-weight: 800; cursor: pointer; }
+
+        .qris-container { background: #fff; padding: 15px; border-radius: 20px; display: inline-block; margin: 20px 0; }
         .qris-img { width: 100%; max-width: 240px; display: block; }
-
-        /* --- CUSTOM MODAL --- */
-        #customModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; backdrop-filter: blur(5px); justify-content: center; align-items: flex-end; }
-        .modal-content { background: #111; width: 100%; max-width: 500px; border-radius: 30px 30px 0 0; padding: 40px 30px; animation: slideUp 0.4s cubic-bezier(0.25, 1, 0.5, 1); border-top: 2px solid var(--primary); text-align: center; }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
         #loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
         .spinner { width: 45px; height: 45px; border: 4px solid var(--border); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
@@ -64,16 +66,6 @@
     </style>
 </head>
 <body>
-
-    <div id="customModal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div style="width: 50px; height: 5px; background: #333; border-radius: 10px; margin: -20px auto 25px;"></div>
-            <i id="modalIcon" class="fas fa-info-circle" style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"></i>
-            <h3 id="modalTitle" style="margin-bottom: 10px; font-family: 'Space Grotesk';">PEMBERITAHUAN</h3>
-            <p id="modalBody" style="color: #888; margin-bottom: 30px; line-height: 1.6;"></p>
-            <button class="btn" onclick="closeModal()">SAYA MENGERTI</button>
-        </div>
-    </div>
 
     <div id="loading-overlay">
         <div class="spinner"></div>
@@ -84,15 +76,15 @@
 
     <header>
         <div class="logo" onclick="showPage('home')">AXCZYL<span>STORE</span></div>
-        <div style="font-size: 0.7rem; font-weight: 800; color: #555;"><i class="fas fa-circle" style="color: #00ff88; font-size: 0.5rem; vertical-align: middle;"></i> SERVER ACTIVE</div>
+        <div style="font-size: 0.7rem; font-weight: 800; color: #555;"><i class="fas fa-shield-alt"></i> SECURE</div>
     </header>
 
     <section id="home" class="active">
-        <h2 style="font-family:'Space Grotesk'; margin-bottom: 25px; font-size: 1.8rem;">CHOOSE <span>LAYANAN</span></h2>
+        <h2 style="font-family:'Space Grotesk'; margin-bottom: 25px;">PILIH <span>LAYANAN</span></h2>
         <div class="grid">
             <div class="card">
                 <img src="https://i.ibb.co.com/xKSVXqmb/aplikasi-kiosbank-ppob-mobil-desktop.jpg" style="width:100%; border-radius:18px; margin-bottom:20px;">
-                <h3 style="margin-bottom: 10px;">Website PPOB Pro</h3>
+                <h3>Website PPOB Pro</h3>
                 <p style="color:#666; font-size:0.85rem; margin-bottom:20px;">Panel otomatis topup game, pulsa & tagihan PPOB.</p>
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <span style="color:var(--primary); font-weight:800; font-size:1.2rem;">Rp 150.000</span>
@@ -101,7 +93,7 @@
             </div>
             <div class="card">
                 <img src="https://i.ibb.co.com/Xx2qGgMY/images-18.jpg" style="width:100%; border-radius:18px; margin-bottom:20px;">
-                <h3 style="margin-bottom: 10px;">Bot Telegram Store</h3>
+                <h3>Bot Telegram Store</h3>
                 <p style="color:#666; font-size:0.85rem; margin-bottom:20px;">Bot jualan otomatis 24/7 di Telegram.</p>
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <span style="color:var(--primary); font-weight:800; font-size:1.2rem;">Rp 50.000</span>
@@ -113,50 +105,64 @@
 
     <section id="form-order">
         <div class="card" style="max-width:500px; margin:auto;">
-            <h2 style="font-family:'Space Grotesk'; margin-bottom:25px;">PESANAN <span>DETAIL</span></h2>
+            <h2 style="font-family:'Space Grotesk'; margin-bottom:25px;">DETAIL <span>ORDER</span></h2>
             <input type="text" id="f_project" placeholder="Nama Project / Domain">
-            <input type="email" id="f_email" placeholder="Alamat Email Aktif">
-            <textarea id="f_note" rows="3" placeholder="Catatan Khusus..."></textarea>
+            <input type="email" id="f_email" placeholder="Email Aktif">
+            <textarea id="f_note" rows="3" placeholder="Catatan (Opsional)..."></textarea>
             
             <div style="background: rgba(255,255,255,0.03); padding:20px; border-radius:20px; border:1px solid var(--border); margin-bottom:20px;">
-                <p style="font-size:0.7rem; color:#666; margin-bottom:5px;">TAGIHAN ANDA:</p>
+                <p style="font-size:0.7rem; color:#666;">TAGIHAN:</p>
                 <h2 id="orderTotal" style="color:var(--primary); font-family: 'Space Grotesk';">Rp 0</h2>
             </div>
-
-            <button class="btn" onclick="confirmOrder()">KONFIRMASI PESANAN <i class="fas fa-arrow-right"></i></button>
+            <button class="btn" onclick="confirmOrder()">LANJUT KE PEMBAYARAN</button>
         </div>
     </section>
 
     <section id="payment-view">
         <div class="card" style="max-width:500px; margin:auto; text-align:center;">
-            <h2 style="font-family:'Space Grotesk';">SECURE <span>GATEWAY</span></h2>
-            <p style="font-size:0.8rem; color:#666; margin-top:10px;">Silakan bayar tagihan di bawah ini:</p>
-            
-            <h1 id="payPrice" style="color:var(--primary); font-family:'Space Grotesk'; margin: 25px 0; font-size: 2.8rem;">Rp 0</h1>
+            <h2 style="font-family:'Space Grotesk';">PEMBAYARAN</h2>
+            <h1 id="payPrice" style="color:var(--primary); font-family:'Space Grotesk'; margin: 20px 0; font-size: 2.5rem;">Rp 0</h1>
 
+            <p style="font-size:0.8rem; color:#666;">Pilih metode pembayaran manual:</p>
+            
             <div class="pay-grid">
-                <div class="btn-pay" onclick="payWithDana()">
+                <div class="btn-pay" id="btn-dana" onclick="selectPay('dana')">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_danamas.png" alt="DANA">
                     <span style="font-size:0.7rem; font-weight:800;">DANA</span>
                 </div>
-                <div class="btn-pay" onclick="payWithGopay()">
+                <div class="btn-pay" id="btn-gopay" onclick="selectPay('gopay')">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Logo_GoPay.png" alt="GOPAY">
                     <span style="font-size:0.7rem; font-weight:800;">GOPAY</span>
                 </div>
             </div>
 
-            <div class="qris-container">
-                <img src="https://i.ibb.co.com/zh14S8vp/Kode-QRIS-AXCZYL-STORE-Kesehatan-Olahraga.jpg" class="qris-img">
-                <div style="margin-top:10px; font-size:0.6rem; color:#000; font-weight:800;">NMID: ID1026492673656</div>
+            <div id="payment-instruction">
+                <p id="payMethodTitle" style="font-weight:800; color:var(--primary); font-size:0.9rem; margin-bottom:10px;"></p>
+                
+                <label style="font-size:0.6rem; color:#555;">NOMOR TUJUAN:</p>
+                <div class="copy-box">
+                    <span id="payNumber" style="font-weight:800; letter-spacing:1px;">089517604572</span>
+                    <span class="copy-btn" onclick="copyText('payNumber')">SALIN</span>
+                </div>
+
+                <label style="font-size:0.6rem; color:#555;">NOMINAL TRANSFER:</p>
+                <div class="copy-box">
+                    <span id="payAmount" style="font-weight:800;">Rp 0</span>
+                    <span class="copy-btn" onclick="copyText('payAmount', true)">SALIN</span>
+                </div>
+
+                <p style="font-size:0.7rem; color:#666; margin-top:10px; line-height:1.4;">
+                    * Silakan transfer manual ke nomor di atas. Jika sudah, klik tombol konfirmasi di bawah.
+                </p>
             </div>
 
-            <button class="btn" style="margin-top:10px;" onclick="checkStatus()">
-                <i class="fas fa-sync-alt"></i> CHECK STATUS PEMBAYARAN
+            <div class="qris-container" id="qris-area">
+                <img src="https://i.ibb.co.com/zh14S8vp/Kode-QRIS-AXCZYL-STORE-Kesehatan-Olahraga.jpg" class="qris-img">
+            </div>
+
+            <button class="btn" style="margin-top:20px;" onclick="confirmToWA()">
+                <i class="fab fa-whatsapp"></i> KONFIRMASI VIA WHATSAPP
             </button>
-            
-            <p style="font-size:0.7rem; color:#444; margin-top:20px; cursor:pointer;" onclick="confirmToWA()">
-                Kendala Pembayaran? <u>Hubungi Admin</u>
-            </p>
         </div>
     </section>
 
@@ -169,18 +175,6 @@
             window.scrollTo(0,0);
         }
 
-        // --- CUSTOM ALERT REPLACEMENT ---
-        function openModal(title, body, icon = "fa-info-circle") {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalBody').innerText = body;
-            document.getElementById('modalIcon').className = `fas ${icon}`;
-            document.getElementById('customModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('customModal').style.display = 'none';
-        }
-
         function startOrder(name, price) {
             currentOrder = { name, price };
             document.getElementById('orderTotal').innerText = `Rp ${price.toLocaleString()}`;
@@ -188,39 +182,58 @@
         }
 
         function confirmOrder() {
-            if(!document.getElementById('f_project').value) return openModal("Ops!", "Nama Project wajib diisi.", "fa-exclamation-triangle");
-            
+            if(!document.getElementById('f_project').value) return alert("Isi nama project dulu bang!");
             document.getElementById('loading-overlay').style.display = 'flex';
             document.getElementById('payPrice').innerText = `Rp ${currentOrder.price.toLocaleString()}`;
+            document.getElementById('payAmount').innerText = `Rp ${currentOrder.price.toLocaleString()}`;
 
             setTimeout(() => {
                 document.getElementById('loading-overlay').style.display = 'none';
                 showPage('payment-view');
-            }, 1200);
+            }, 1000);
         }
 
-        function payWithDana() {
-            window.location.href = `https://link.dana.id/send-money/?phone=089517604572&amount=${currentOrder.price}&comment=Order_${currentOrder.name}`;
+        function selectPay(type) {
+            // UI Toggle
+            document.querySelectorAll('.btn-pay').forEach(b => b.classList.remove('active'));
+            document.getElementById(`btn-${type}`).classList.add('active');
+            
+            // Show Instruction
+            const box = document.getElementById('payment-instruction');
+            const title = document.getElementById('payMethodTitle');
+            const num = document.getElementById('payNumber');
+            
+            box.style.display = 'block';
+            document.getElementById('qris-area').style.display = 'none';
+
+            if(type === 'dana') {
+                title.innerText = "INTRUKSI TRANSFER DANA";
+                num.innerText = "089517604572";
+            } else {
+                title.innerText = "INTRUKSI TRANSFER GOPAY";
+                num.innerText = "089677040178";
+            }
         }
 
-        function payWithGopay() {
-            // Kita pake Modal Custom biar lebih cakep
-            openModal("TRANSFER GOPAY", "Silakan transfer manual ke 089677040178 sebesar Rp " + currentOrder.price.toLocaleString(), "fa-wallet");
-        }
-
-        function checkStatus() {
-            document.getElementById('loading-overlay').style.display = 'flex';
-            setTimeout(() => {
-                document.getElementById('loading-overlay').style.display = 'none';
-                openModal("PENDING", "Mutasi belum terdeteksi sistem. Jika sudah bayar, silakan kirim bukti ke WhatsApp Admin.", "fa-clock");
-            }, 2000);
+        function copyText(id, isAmount = false) {
+            let val = document.getElementById(id).innerText;
+            if(isAmount) val = val.replace(/[^\d]/g, ''); // Ambil angka doang kalo nominal
+            
+            navigator.clipboard.writeText(val);
+            const btn = event.target;
+            btn.innerText = "TERSALIN!";
+            setTimeout(() => btn.innerText = "SALIN", 2000);
         }
 
         function confirmToWA() {
             const project = document.getElementById('f_project').value;
-            const waMsg = `🚀 *KONFIRMASI PESANAN*\nProduk: ${currentOrder.name}\nTotal: Rp ${currentOrder.price.toLocaleString()}\nProject: ${project}`;
+            const waMsg = `🚀 *KONFIRMASI PEMBAYARAN - AXCZYL STORE*\n\n` +
+                          `📦 *Produk:* ${currentOrder.name}\n` +
+                          `💰 *Total:* Rp ${currentOrder.price.toLocaleString()}\n` +
+                          `🌐 *Project:* ${project}\n\n` +
+                          `_Saya sudah transfer, tolong dicek bang!_`;
             window.open(`https://wa.me/6289517604572?text=${encodeURIComponent(waMsg)}`, '_blank');
         }
     </script>
 </body>
-</html>
+                </html>
