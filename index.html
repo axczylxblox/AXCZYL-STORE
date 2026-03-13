@@ -1,354 +1,126 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3769252658547366" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AXCZYL COMMUNITY | DOKTER DIGITAL</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXCZYL STORE | PPOB</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
-
     <style>
-        :root {
-            --primary: #ff007f;
-            --primary-glow: rgba(255, 0, 127, 0.4);
-            --bg: #030303;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.08);
-            --text: #ffffff;
-            --header-h: 80px;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; }
-
-        /* --- BACKGROUND --- */
-        .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 10%, rgba(255, 0, 127, 0.1) 0%, transparent 60%); z-index: -1; }
-        .grid-pattern { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; opacity: 0.2; mask-image: linear-gradient(to bottom, black, transparent); }
-
-        /* --- HEADER --- */
-        header {
-            width: 100%; height: var(--header-h); padding: 0 7%; 
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(3, 3, 3, 0.7); border-bottom: 1px solid var(--border);
-            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(20px);
-        }
-        .logo { font-family: 'Space Grotesk'; font-size: 1.8rem; font-weight: 800; color: #fff; letter-spacing: -1px; cursor: pointer; }
-        .logo span { color: var(--primary); text-shadow: 0 0 15px var(--primary-glow); }
-
-        /* --- NAVIGATION --- */
-        .nav-menu {
-            position: fixed; top: 0; right: -100%; width: 320px; height: 100vh;
-            background: #080808; flex-direction: column; padding: 80px 40px; transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            border-left: 1px solid var(--border); z-index: 1001; list-style: none;
-        }
-        .nav-menu.active { right: 0; }
-        .nav-menu li { margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-        .nav-menu a { text-decoration: none; color: #fff; font-size: 0.9rem; font-weight: 700; transition: 0.3s; cursor: pointer; display: flex; align-items: center; gap: 15px; text-transform: uppercase; }
-        .nav-menu a:hover { color: var(--primary); padding-left: 10px; }
-        .hamburger { font-size: 1.8rem; color: var(--primary); cursor: pointer; }
-        .close-menu { position: absolute; top: 30px; right: 30px; font-size: 2rem; color: var(--primary); cursor: pointer; }
-
-        /* --- PAGES --- */
-        section { display: none; padding: 40px 7%; min-height: calc(100vh - var(--header-h)); animation: fadeIn 0.8s ease; }
+        :root { --primary: #ff007f; --bg: #030303; --border: rgba(255, 255, 255, 0.08); --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans'; margin: 0; }
+        header { padding: 20px 7%; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); }
+        .logo span { color: var(--primary); }
+        section { display: none; padding: 40px 7%; animation: fadeIn 0.5s; }
         section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- HOME --- */
-        .hero { text-align: center; padding-top: 20px; }
-        .hero-banner { 
-            background: linear-gradient(135deg, rgba(255,0,127,0.1) 0%, rgba(255,255,255,0.02) 100%);
-            border: 1px solid var(--border); padding: 80px 40px; border-radius: 40px;
-            backdrop-filter: blur(10px); margin-bottom: 40px; position: relative; overflow: hidden;
-        }
-        .hero h1 { font-family: 'Space Grotesk'; font-size: clamp(2.2rem, 8vw, 5rem); line-height: 1.1; margin-bottom: 20px; font-weight: 800; background: linear-gradient(to bottom, #fff 50%, #666); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { color: #888; font-size: 1rem; max-width: 700px; margin: 0 auto 40px; }
-
-        .service-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .s-link { background: #0f0f0f; border: 1px solid var(--border); padding: 30px; border-radius: 25px; cursor: pointer; transition: 0.3s; text-align: left; }
-        .s-link:hover { border-color: var(--primary); transform: translateY(-5px); background: rgba(255,0,127,0.05); }
-        .s-link i { font-size: 2rem; color: var(--primary); margin-bottom: 20px; display: block; }
-        .s-link h3 { font-family: 'Space Grotesk'; margin-bottom: 10px; }
-
-        /* --- PRODUCT GRID --- */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
-        .product-card { background: #0a0a0a; border: 1px solid var(--border); border-radius: 25px; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; }
-        .product-card:hover { border-color: var(--primary); transform: translateY(-8px); box-shadow: 0 15px 30px rgba(255,0,127,0.1); }
-        .product-img { width: 100%; height: 180px; object-fit: cover; filter: grayscale(20%); transition: 0.5s; }
-        .product-card:hover .product-img { filter: grayscale(0%); transform: scale(1.05); }
-        .product-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-        .product-info h3 { font-family: 'Space Grotesk'; font-size: 1.2rem; margin-bottom: 10px; color: #fff; }
-        .product-info p { font-size: 0.85rem; color: #777; margin-bottom: 20px; flex-grow: 1; }
-
-        .btn-order { background: #25d366; color: #fff; width: 100%; padding: 14px; border-radius: 15px; border: none; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; text-decoration: none; }
-        .btn-order:hover { transform: scale(1.02); filter: brightness(1.1); box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
-
-        .custom-section { background: #111; border: 1px dashed var(--primary); border-radius: 30px; padding: 40px; margin-top: 50px; text-align: center; }
-        .custom-section input { width: 100%; max-width: 500px; padding: 18px; background: #000; border: 1px solid var(--border); border-radius: 15px; color: #fff; margin-bottom: 20px; outline: none; }
-        .custom-section input:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
-
-        /* --- AUDIO PLAYER --- */
-        .audio-player { position: fixed; bottom: 25px; left: 25px; background: rgba(0,0,0,0.8); border: 1px solid var(--border); padding: 10px 20px; border-radius: 50px; display: flex; align-items: center; gap: 15px; z-index: 2000; backdrop-filter: blur(10px); }
-        .audio-player button { background: var(--primary); border: none; width: 35px; height: 35px; border-radius: 50%; color: #fff; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        .audio-player button:hover { transform: scale(1.1); background: #ff3399; }
-
-        .back-btn { cursor: pointer; color: var(--primary); font-weight: 800; display: inline-flex; align-items: center; gap: 10px; margin-bottom: 30px; font-size: 0.8rem; border: 1px solid var(--primary); padding: 8px 15px; border-radius: 50px; transition: 0.3s; }
-        .back-btn:hover { background: var(--primary); color: #fff; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .btn-order { background: var(--primary); color: #fff; border: none; padding: 12px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: 800; }
+        .card { background: #0a0a0a; border: 1px solid var(--border); padding: 20px; border-radius: 20px; margin-bottom: 20px; }
+        input { width: 100%; padding: 15px; background: #111; border: 1px solid var(--border); color: #fff; border-radius: 10px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <audio id="myAudio" loop>
-        <source src="https://files.catbox.moe/s1w7q9.mp3" type="audio/mpeg">
-    </audio>
-
-    <div class="audio-player">
-        <button onclick="togglePlay()" id="playBtn"><i class="fas fa-play"></i></button>
-        <span style="font-size: 0.6rem; font-weight: 800; letter-spacing: 1px; color: #fff;">SYSTEM SOUND</span>
+<header>
+    <div class="logo" onclick="showPage('home')">AXCZYL<span>STORE</span></div>
+    <div id="authStatus">
+        <button onclick="showPage('login-page')" style="background:none; color:var(--primary); border:none; font-weight:800; cursor:pointer;">LOGIN</button>
     </div>
+</header>
 
-    <div class="bg-glow"></div>
-    <div class="grid-pattern"></div>
-
-    <header>
-        <div class="logo" onclick="showPage('home')">AXCZYL<span>TEAM</span></div>
-        <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars-staggered"></i></div>
-    </header>
-
-    <ul class="nav-menu" id="navMenu">
-        <div class="close-menu" onclick="toggleMenu()"><i class="fas fa-times"></i></div>
-        <li><a onclick="showPage('home')"><i class="fas fa-home"></i> Dashboard</a></li>
-        <li><a onclick="showPage('web-page')"><i class="fas fa-code"></i> Pembuatan Website</a></li>
-        <li><a onclick="showPage('tele-page')"><i class="fab fa-telegram"></i>Bikin Bot Telegram</a></li>
-        <li><a onclick="showPage('wa-page')"><i class="fab fa-whatsapp"></i> Bikin Bot WhatsApp</a></li>
-        <li><a onclick="showPage('about')"><i class="fas fa-shield-halved"></i> Tentang Kami</a></li>
-    </ul>
-
-    <section id="home" class="active">
-        <div class="hero">
-            <div class="hero-banner">
-    <h1 style="font-size: clamp(1.8rem, 6vw, 3.2rem); letter-spacing: -0.5px; margin-bottom: 15px;">
-        DOKTER <span>DIGITAL</span>
-    </h1>
-    
-    <p style="font-size: clamp(0.9rem, 2vw, 1.05rem); max-width: 600px; margin: 0 auto 40px; line-height: 1.6; color: #888;">
-        Ubah imajinasi menjadi otomasi. Laboratorium pengembang Website & Bot cerdas yang dirancang untuk mendominasi kecepatan dan efisiensi era baru.
-    </p>
-
-    <div class="service-links">
-                    <div class="s-link" onclick="showPage('web-page')">
-                        <i class="fas fa-globe"></i>
-                        <h3>Bikin Website</h3>
-                        <p>PPOB, Store, Film, Sekolah, Portofolio & Perusahaan.</p>
-                    </div>
-                    <div class="s-link" onclick="showPage('tele-page')">
-                        <i class="fab fa-telegram"></i>
-                        <h3>Bikin Bot Telegram</h3>
-                        <p>Store, Bug, Clone, AI, & Portofolio.</p>
-                    </div>
-                    <div class="s-link" onclick="showPage('wa-page')">
-                        <i class="fab fa-whatsapp"></i>
-                        <h3>Bikin Bot WhatsApp</h3>
-                        <p>Automation chat, Store, AI & Security Engine.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="web-page">
-        <div class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> KEMBALI</div>
-        <h2 style="font-family:'Space Grotesk'; font-size: 2.5rem; margin-bottom: 10px;">Website <span>Catalog</span></h2>
-        <div class="product-grid">
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/xKSVXqmb/aplikasi-kiosbank-ppob-mobil-desktop.jpg" class="product-img">
-                <div class="product-info"><h3>Website PPOB</h3><p>Sistem otomatisasi topup game, pulsa & kuota API provider.</p><button class="btn-order" onclick="order('Web PPOB')">ORDER</button></div>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/gL9R2fJm/original-39dae8a89dc0509763e61aef5e66a126.png" class="product-img">
-                <div class="product-info"><h3>Website Store</h3><p>Toko online modern dengan sistem payment gateway.</p><button class="btn-order" onclick="order('Web Store')">ORDER</button></div>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/m5NpxPpk/images-17.jpg" class="product-img">
-                <div class="product-info"><h3>Website Film</h3><p>Web streaming movie dengan database film lengkap.</p><button class="btn-order" onclick="order('Web Film')">ORDER</button></div>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/4wCXzBD7/original-dfa1294d719c9d562d0034aef5c46116.jpg" class="product-img">
-                <div class="product-info"><h3>Website Portofolio</h3><p>Showcase karya terbaik dengan CV digital elegan.</p><button class="btn-order" onclick="order('Web Portfolio')">ORDER</button></div>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/hxC47Wt0/GP-Web-Sekolah.webp" class="product-img">
-                <div class="product-info"><h3>Website Sekolah</h3><p>Portal informasi instansi pendidikan & akademik.</p><button class="btn-order" onclick="order('Web Sekolah')">ORDER</button></div>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/cKzcmY1B/images-19.jpg" class="product-img">
-                <div class="product-info"><h3>Website Perusahaan</h3><p>Company profile mewah untuk kredibilitas bisnis.</p><button class="btn-order" onclick="order('Web Company Profile')">ORDER</button></div>
-            </div>
-        </div>
-        <div class="custom-section">
-            <h3>WEBSITE CUSTOM</h3>
-            <input type="text" id="customWeb" placeholder="Masukan permintaan website custom...">
-            <button class="btn-order" style="max-width: 300px; margin: 0 auto;" onclick="orderCustom('customWeb', 'Web')">KIRIM REQUEST</button>
-        </div>
-    </section>
-
-    <section id="tele-page">
-        <div class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> KEMBALI</div>
-        <h2 style="font-family:'Space Grotesk'; font-size: 2.5rem; margin-bottom: 10px;">Telegram <span>Bots</span></h2>
-        <div class="product-grid">
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/xKSVXqmb/aplikasi-kiosbank-ppob-mobil-desktop.jpg" class="product-img">
-                <div class="product-info"><h3>Bot Store</h3><p>Jualan produk digital otomatis 24 jam via Telegram.</p><button class="btn-order" onclick="order('Bot Tele Store')">ORDER</button></div>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/Xx2qGgMY/images-18.jpg" class="product-img">
-                <div class="product-info"><h3>Bot Bug</h3><p>Bot pengujian celah keamanan & sistem integrasi.</p><button class="btn-order" onclick="order('Bot Tele Bug')">ORDER</button></div>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/KxfNVHnP/how-to-clone-your-website.png" class="product-img">
-                <div class="product-info"><h3>Bot Clone</h3><p>Duplikasi fitur & sistem bot populer ke server Anda.</p><button class="btn-order" onclick="order('Bot Tele Clone')">ORDER</button></div>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/4wCXzBD7/original-dfa1294d719c9d562d0034aef5c46116.jpg" class="product-img">
-                <div class="product-info"><h3>Bot Portofolio</h3><p>CV interaktif yang bisa diakses langsung via chat.</p><button class="btn-order" onclick="order('Bot Tele Portfolio')">ORDER</button></div>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/gM42LkrM/AI-in-Web-Development.jpg" class="product-img">
-                <div class="product-info"><h3>Bot AI</h3><p>Implementasi ChatGPT / Image Gen di Telegram.</p><button class="btn-order" onclick="order('Bot Tele AI')">ORDER</button></div>
-            </div>
-        </div>
-        <div class="custom-section">
-            <h3>CUSTOM BOT TELEGRAM</h3>
-            <input type="text" id="customTele" placeholder="Masukan Detail Bot Tele...">
-            <button class="btn-order" style="max-width: 300px; margin: 0 auto;" onclick="orderCustom('customTele', 'Bot Tele')">KIRIM REQUEST</button>
-        </div>
-    </section>
-
-    <section id="wa-page">
-        <div class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> KEMBALI</div>
-        <h2 style="font-family:'Space Grotesk'; font-size: 2.5rem; margin-bottom: 10px;">WhatsApp <span>Bots</span></h2>
-        <div class="product-grid">
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/xKSVXqmb/aplikasi-kiosbank-ppob-mobil-desktop.jpg" class="product-img">
-                <div class="product-info"><h3>Bot Store</h3><p>Otomatisasi jualan & katalog produk via chat WhatsApp.</p><button class="btn-order" onclick="order('Bot WA Store')">ORDER</button></div>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/Xx2qGgMY/images-18.jpg" class="product-img">
-                <div class="product-info"><h3>Bot Bug</h3><p>Bot testing & vulnerability engine khusus WhatsApp.</p><button class="btn-order" onclick="order('Bot WA Bug')">ORDER</button></div>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/KxfNVHnP/how-to-clone-your-website.png" class="product-img">
-                <div class="product-info"><h3>Bot Clone</h3><p>Kloning sistem bot WA dengan fitur yang sama persis.</p><button class="btn-order" onclick="order('Bot WA Clone')">ORDER</button></div>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/4wCXzBD7/original-dfa1294d719c9d562d0034aef5c46116.jpg" class="product-img">
-                <div class="product-info"><h3>Bot Portofolio</h3><p>Biodata & profil bisnis otomatis dalam satu chat.</p><button class="btn-order" onclick="order('Bot WA Portfolio')">ORDER</button></div>
-            </div>
-            <div class="product-card">
-                <img src="https://i.ibb.co.com/gM42LkrM/AI-in-Web-Development.jpg">
-                <div class="product-info"><h3>Bot AI</h3><p>Integrasi asisten pintar AI ChatGPT ke WhatsApp Anda.</p><button class="btn-order" onclick="order('Bot WA AI')">ORDER</button></div>
-            </div>
-        </div>
-        <div class="custom-section">
-            <h3>CUSTOM BOT WHATSAPP</h3>
-            <input type="text" id="customWA" placeholder="Masukan Detail Bot WA...">
-            <button class="btn-order" style="max-width: 300px; margin: 0 auto;" onclick="orderCustom('customWA', 'Bot WA')">KIRIM REQUEST</button>
-        </div>
-    </section>
-<section id="about" style="padding-bottom: 120px;"> <div class="back-btn" onclick="showPage('home')" style="margin-bottom: 20px;"><i class="fas fa-arrow-left"></i> KEMBALI</div>
-    
-    <div class="about-container" style="max-width: 500px; margin: 0 auto;">
-        <h2 style="font-family:'Space Grotesk'; font-size: 2rem; margin-bottom: 25px; text-align: center; text-transform: uppercase; letter-spacing: 2px;">TENTANG <span>KAMI</span></h2>
-        <div class="about-card" style="background: #060606; border: 1px solid var(--border); border-radius: 30px; overflow: hidden; position: relative;">
-    
-    <div style="width: 100%; line-height: 0; background: #000;">
-        <img src="https://i.ibb.co.com/gM42LkrM/AI-in-Web-Development.jpg" 
-             alt="AI Branding" 
-             style="width: 100%; height: auto; display: block; object-fit: cover;">
-    </div>
-
-    <div style="padding: 35px 20px;">
-        
-        <div style="text-align: center; margin-bottom: 25px;">
-            <div style="display: inline-block; margin-bottom: 10px;">
-                <i class="fas fa-shield-halved" style="font-size: 2rem; color: var(--primary); filter: drop-shadow(0 0 10px var(--primary-glow));"></i>
-            </div>
-            <h3 style="font-family: 'Space Grotesk'; font-size: 1.5rem; color: #fff; margin: 0; line-height: 1.2; letter-spacing: 1px;">
-                AXCZYL<br>
-                <span style="color: var(--primary); font-weight: 800;">COMMUNITY</span>
-            </h3>
-        </div>
-
-        <p style="font-size: 0.95rem; line-height: 1.7; color: #aaa; text-align: center; margin: 0 auto 30px; max-width: 90%; font-weight: 400;">
-            Kami adalah entitas pengembang digital yang berfokus pada efisiensi sistem dan inovasi futuristik. 
-            <span style="color: #fff; font-weight: 600;">AXCZYL COMMUNITY</span> mentransformasi ide kompleks menjadi solusi teknologi premium.
-        </p>
-
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; border-top: 1px solid var(--border); padding-top: 25px; margin-bottom: 10px;">
-            <div class="feat">
-                <i class="fas fa-fingerprint" style="color: var(--primary); font-size: 1.1rem; margin-bottom: 6px; display: block;"></i>
-                <span style="font-size: 0.6rem; font-weight: 800; color: #fff; letter-spacing: 1px;">SECURED</span>
-            </div>
-            <div class="feat">
-                <i class="fas fa-bolt" style="color: var(--primary); font-size: 1.1rem; margin-bottom: 6px; display: block;"></i>
-                <span style="font-size: 0.6rem; font-weight: 800; color: #fff; letter-spacing: 1px;">FAST</span>
-            </div>
-            <div class="feat">
-                <i class="fas fa-gem" style="color: var(--primary); font-size: 1.1rem; margin-bottom: 6px; display: block;"></i>
-                <span style="font-size: 0.6rem; font-weight: 800; color: #fff; letter-spacing: 1px;">PREMIUM</span>
-            </div>
+<section id="home" class="active">
+    <div class="card" id="userInfo" style="display:none;">
+        <h3 id="userHello">Halo, User!</h3>
+        <p>Saldo: <span id="balanceText" style="color:var(--primary);">Rp 0</span></p>
+        <div style="display:flex; gap:10px; margin-top:10px;">
+            <button onclick="showPage('deposit-page')" style="flex:1; padding:5px; border-radius:5px; border:1px solid var(--primary); background:none; color:#fff;">Topup</button>
+            <button onclick="showPage('history-page')" style="flex:1; padding:5px; border-radius:5px; border:1px solid var(--primary); background:none; color:#fff;">Riwayat</button>
         </div>
     </div>
-</div>
-
-
-                <div style="text-align: center;">
-                    <span style="font-size: 0.6rem; color: #444; letter-spacing: 2px; border: 1px solid #222; padding: 5px 15px; border-radius: 50px;">DKI JAKARTA</span>
-                </div>
-            </div>
+    
+    <h2>Layanan <span>Unggulan</span></h2>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; margin-top:20px;">
+        <div class="card" onclick="order('Web PPOB', 150000)">
+            <i class="fas fa-globe" style="font-size:2rem; color:var(--primary);"></i>
+            <h3>Web PPOB</h3>
+            <p>Rp 150.000</p>
         </div>
+        </div>
+</section>
+
+<section id="login-page">
+    <div class="card" style="max-width:400px; margin:auto;">
+        <h3>USER LOGIN</h3>
+        <input type="text" id="l_user" placeholder="Username">
+        <input type="password" id="l_pass" placeholder="Password">
+        <button class="btn-order" onclick="login()">MASUK</button>
     </div>
 </section>
 
+<section id="history-page">
+    <button onclick="showPage('home')" class="btn-order" style="width:auto; margin-bottom:20px;">KEMBALI</button>
+    <h3>Riwayat Transaksi</h3>
+    <div id="historyList"></div>
+</section>
 
-    <p style="text-align: center; color:#333; font-size: 0.7rem; padding: 20px 0;">© AXCZYL COMMUNITY BERDIRI SEJAK 2023</p>
+<section id="admin-page">
+    <h2>ADMIN PANEL</h2>
+    <div class="card">
+        <h3>Total Penjualan: Rp <span id="totalSales">0</span></h3>
+    </div>
+</section>
 
-    <script>
-        const WA_NUMBER = "6289517604572"; // <--- GANTI NOMOR WA LU DISINI
+<script>
+    let userData = null;
 
-        function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
+    function showPage(id) {
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
 
-        function showPage(id) {
-            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            document.getElementById('navMenu').classList.remove('active');
-            window.scrollTo({top: 0, behavior: 'smooth'});
+    async function login() {
+        const username = document.getElementById('l_user').value;
+        const password = document.getElementById('l_pass').value;
+        
+        const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ username, password })
+        });
+        
+        const data = await res.json();
+        if(data.success) {
+            userData = data.user;
+            document.getElementById('authStatus').innerHTML = `<span style="color:var(--primary)">${userData.username}</span>`;
+            document.getElementById('userInfo').style.display = 'block';
+            document.getElementById('userHello').innerText = `Halo, ${userData.username}!`;
+            document.getElementById('balanceText').innerText = `Rp ${userData.balance.toLocaleString()}`;
+            
+            if(userData.role === 'admin') showPage('admin-page');
+            else showPage('home');
+        } else {
+            alert(data.message);
         }
+    }
 
-        function togglePlay() {
-            const audio = document.getElementById('myAudio');
-            const btn = document.getElementById('playBtn');
-            if (audio.paused) {
-                audio.play();
-                btn.innerHTML = '<i class="fas fa-pause"></i>';
-            } else {
-                audio.pause();
-                btn.innerHTML = '<i class="fas fa-play"></i>';
-            }
+    async function order(product, price) {
+        if(!userData) return showPage('login-page');
+        
+        const res = await fetch('/api/order', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ username: userData.username, product, price })
+        });
+        
+        const data = await res.json();
+        if(data.success) {
+            alert('Pembelian Berhasil!');
+            userData.balance = data.balance;
+            document.getElementById('balanceText').innerText = `Rp ${data.balance.toLocaleString()}`;
+        } else {
+            alert(data.message);
         }
-
-        function order(name) {
-            const msg = `Halo *TIM AXCZYL COMMUNITY*,\nSaya tertarik memesan jasa:\n🚀 *${name}*\n\nBisa dibantu prosesnya?`;
-            window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        function orderCustom(inputId, type) {
-            const val = document.getElementById(inputId).value;
-            if(!val) return alert('Detail pesanan belum diisi!');
-            const msg = `HALO TIM AXCZYL COMMUNITY,\nSaya ingin pesan CUSTOM ${type}:\n📝 *${val}*\n\nMohon estimasi harganya.`;
-            window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-    </script>
+    }
+</script>
 </body>
 </html>
