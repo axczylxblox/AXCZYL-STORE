@@ -1,0 +1,8 @@
+{
+  "name": "axczyl-ppob-vercel",
+  "version": "1.0.0",
+  "main": "api/auth.js",
+  "dependencies": {
+    "@vercel/kv": "^1.0.1"
+  }
+}
