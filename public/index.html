@@ -21,7 +21,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background-color: var(--bg); color: var(--text); overflow-x: hidden; }
 
-        /* --- UI ELEMENTS --- */
         .glow-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% -10%, rgba(255, 0, 127, 0.15), transparent 70%); z-index: -1; }
         
         header {
@@ -40,18 +39,18 @@
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         
         label { display: block; margin-bottom: 8px; font-size: 0.75rem; font-weight: 800; color: #888; text-transform: uppercase; }
-        input, select, textarea { width: 100%; padding: 15px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 12px; margin-bottom: 15px; outline: none; }
-        input:focus { border-color: var(--primary); }
+        input, select, textarea { width: 100%; padding: 15px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 12px; margin-bottom: 15px; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
         
-        .btn { background: var(--primary); color: #fff; border: none; padding: 15px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .btn:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px var(--primary-glow); }
+        .btn { background: var(--primary); color: #fff; border: none; padding: 15px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
+        .btn:hover { filter: brightness(1.2); transform: translateY(-2px); }
+        .btn-dana { background: #0085da; }
+        .btn-gopay { background: #00aa13; }
         
-        .qris-box { text-align: center; background: #fff; padding: 15px; border-radius: 15px; display: inline-block; margin: 20px 0; }
-        .qris-img { width: 100%; max-width: 250px; }
+        .qris-box { text-align: center; background: #fff; padding: 10px; border-radius: 15px; display: inline-block; margin: 15px 0; border: 4px solid var(--primary); }
+        .qris-img { width: 100%; max-width: 220px; }
 
-        .unique-code { background: rgba(255, 0, 127, 0.1); border: 1px dashed var(--primary); padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 20px; }
-        
-        #loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
+        #loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
         .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
@@ -60,14 +59,14 @@
 
     <div id="loading-overlay">
         <div class="spinner"></div>
-        <p style="margin-top: 15px; font-weight: 800; letter-spacing: 2px;">SYNCING WITH SERVER...</p>
+        <p style="margin-top: 15px; font-weight: 800; letter-spacing: 2px;">PROSES PESANAN...</p>
     </div>
 
     <div class="glow-bg"></div>
 
     <header>
         <div class="logo" onclick="showPage('home')">AXCZYL<span>STORE</span></div>
-        <div style="font-size: 0.7rem; color: #666;"><i class="fas fa-lock"></i> SECURE GATEWAY</div>
+        <div style="font-size: 0.7rem; color: #666;"><i class="fas fa-bolt" style="color: var(--primary);"></i> AUTO-PAYMENT</div>
     </header>
 
     <section id="home" class="active">
@@ -78,14 +77,14 @@
                 <h3>Website PPOB Pro</h3>
                 <p style="color:#666; font-size:0.8rem; margin:10px 0;">Panel Topup Game & PPOB Otomatis via API.</p>
                 <h4 style="color:var(--primary); margin-bottom:15px;">Rp 150,000</h4>
-                <button class="btn" onclick="startOrder('Website PPOB Pro', 150000)">GET STARTED</button>
+                <button class="btn" onclick="startOrder('Website PPOB Pro', 150000)">PESAN SEKARANG</button>
             </div>
             <div class="card">
                 <img src="https://i.ibb.co.com/Xx2qGgMY/images-18.jpg" style="width:100%; border-radius:15px; margin-bottom:15px;">
                 <h3>Bot Telegram Store</h3>
                 <p style="color:#666; font-size:0.8rem; margin:10px 0;">Bot Jualan Otomatis 24 Jam dengan Payment Gateway.</p>
                 <h4 style="color:var(--primary); margin-bottom:15px;">Rp 50,000</h4>
-                <button class="btn" onclick="startOrder('Bot Telegram Store', 50000)">GET STARTED</button>
+                <button class="btn" onclick="startOrder('Bot Telegram Store', 50000)">PESAN SEKARANG</button>
             </div>
         </div>
     </section>
@@ -100,40 +99,47 @@
             <label>Additional Notes</label>
             <textarea id="f_note" rows="3" placeholder="Colors, features, etc..."></textarea>
             
-            <button class="btn" onclick="generateBill()">CONFIRM ORDER</button>
+            <div style="background:#000; padding:15px; border-radius:12px; border:1px solid var(--border); margin-bottom:20px;">
+                <p style="font-size:0.7rem; color:#888;">TOTAL TAGIHAN:</p>
+                <h2 id="orderTotal" style="color:var(--primary);">Rp 0</h2>
+            </div>
+
+            <button class="btn" onclick="confirmOrder()">LANJUT BAYAR <i class="fas fa-arrow-right"></i></button>
         </div>
     </section>
 
     <section id="payment-view">
         <div class="card" style="max-width:500px; margin:auto; text-align:center;">
-            <h3>SECURE <span>PAYMENT</span></h3>
+            <h3>DIRECT <span>PAYMENT</span></h3>
+            <p style="font-size:0.8rem; color:#888; margin: 10px 0;">Pilih aplikasi untuk membayar otomatis</p>
             
-            <div class="unique-code">
-                <p style="font-size:0.8rem; color:#888;">TOTAL TAGIHAN (+ Kode Unik):</p>
-                <h2 id="finalBill" style="color:var(--primary); font-family:'Space Grotesk'; font-size: 2.2rem;">Rp 0</h2>
-                <p style="font-size:0.7rem; color:var(--primary);">Penting: Transfer sesuai nominal persis agar otomatis terdeteksi.</p>
+            <h1 id="payPrice" style="color:var(--primary); font-family:'Space Grotesk'; margin: 20px 0; font-size: 2.5rem;">Rp 0</h1>
+
+            <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:25px;">
+                <button class="btn btn-dana" onclick="payWithDana()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_danamas.png" width="20"> 
+                    BAYAR PAKAI DANA
+                </button>
+
+                <button class="btn btn-gopay" onclick="payWithGopay()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Logo_GoPay.png" width="20"> 
+                    BAYAR PAKAI GOPAY
+                </button>
             </div>
 
+            <p style="font-size:0.7rem; color:#444;">Atau scan QRIS di bawah ini:</p>
             <div class="qris-box">
                 <img src="https://i.ibb.co.com/zh14S8vp/Kode-QRIS-AXCZYL-STORE-Kesehatan-Olahraga.jpg" class="qris-img">
             </div>
 
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:20px;">
-                <button class="btn" style="background:#000; border:1px solid #111;" onclick="openDana()">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_danamas.png" width="15"> DANA
-                </button>
-                <button class="btn" style="background:#000; border:1px solid #111;" onclick="alert('Manual Transfer ke 089677040178 (GOPAY)')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Logo_GoPay.png" width="15"> GOPAY
-                </button>
-            </div>
-
-            <button class="btn" onclick="checkStatus()"><i class="fas fa-sync-alt"></i> CHECK PAYMENT STATUS</button>
-            <p style="font-size:0.7rem; color:#444; margin-top:15px;" onclick="window.open('https://wa.me/6289517604572')">Payment Problem? Click to Chat Admin</p>
+            <button class="btn" style="background:transparent; border:1px solid var(--primary); margin-top:20px; color:var(--primary);" onclick="confirmToWA()">
+                <i class="fab fa-whatsapp"></i> KONFIRMASI PEMBAYARAN
+            </button>
         </div>
     </section>
 
     <script>
-        let orderData = { name: "", price: 0, finalPrice: 0 };
+        let currentOrder = { name: "", price: 0 };
 
         function showPage(id) {
             document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
@@ -142,73 +148,54 @@
         }
 
         function startOrder(name, price) {
-            orderData.name = name;
-            orderData.price = price;
+            currentOrder = { name, price };
+            document.getElementById('orderTotal').innerText = `Rp ${price.toLocaleString()}`;
             showPage('form-order');
         }
 
-        async function generateBill() {
+        function confirmOrder() {
             const project = document.getElementById('f_project').value;
             const email = document.getElementById('f_email').value;
-            if(!project || !email) return alert("Please fill all fields!");
+            if(!project || !email) return alert("Lengkapi data project & email!");
 
-            // Overlay Sync
             document.getElementById('loading-overlay').style.display = 'flex';
+            document.getElementById('payPrice').innerText = `Rp ${currentOrder.price.toLocaleString()}`;
 
-            // Tambah kode unik 1-999
-            const unique = Math.floor(Math.random() * 999) + 1;
-            orderData.finalPrice = orderData.price + unique;
-
-            // Hit API pay.js
-            try {
-                await fetch('/api/pay', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        project, email, 
-                        product: orderData.name, 
-                        price: orderData.finalPrice
-                    })
-                });
-                
-                document.getElementById('finalBill').innerText = `Rp ${orderData.finalPrice.toLocaleString()}`;
-                setTimeout(() => {
-                    document.getElementById('loading-overlay').style.display = 'none';
-                    showPage('payment-view');
-                }, 1500);
-            } catch(e) {
-                alert("Server Sync Error!");
+            setTimeout(() => {
                 document.getElementById('loading-overlay').style.display = 'none';
-            }
+                showPage('payment-view');
+            }, 1000);
         }
 
-        function openDana() {
-            window.open(`https://link.dana.id/send-money/?phone=089517604572&amount=${orderData.finalPrice}&comment=Payment_For_${orderData.name.replace(/\s/g, '_')}`, '_blank');
-        }
-
-        async function checkStatus() {
-            document.getElementById('loading-overlay').style.display = 'flex';
+        // --- DEEPLINK LOGIC ---
+        function payWithDana() {
+            const phone = "089517604572";
+            const amount = currentOrder.price;
+            const note = `Order_${currentOrder.name.replace(/\s/g, '_')}`;
             
-            // Hit API check.js
-            try {
-                const res = await fetch('/api/check');
-                const result = await res.json();
-                
-                setTimeout(() => {
-                    document.getElementById('loading-overlay').style.display = 'none';
-                    if(result.status === 'PAID') {
-                        alert("LUNAS! Terima kasih. Admin akan segera menghubungi via Email/WhatsApp.");
-                    } else {
-                        alert("Pembayaran belum terdeteksi. Silakan transfer sesuai nominal unik atau hubungi admin.");
-                        // Redirect ke WA sebagai backup
-                        const waMsg = `🚀 *KONFIRMASI PEMBAYARAN*\nProject: ${document.getElementById('f_project').value}\nNominal: Rp ${orderData.finalPrice.toLocaleString()}\n\n*Saya sudah transfer, tolong dicek!*`;
-                        window.open(`https://wa.me/6289517604572?text=${encodeURIComponent(waMsg)}`, '_blank');
-                    }
-                }, 2000);
-            } catch(e) {
-                document.getElementById('loading-overlay').style.display = 'none';
-                alert("Gagal terhubung ke sistem mutasi.");
-            }
+            // Link ini akan otomatis membuka aplikasi DANA di HP
+            window.location.href = `https://link.dana.id/send-money/?phone=${phone}&amount=${amount}&comment=${note}`;
+        }
+
+        function payWithGopay() {
+            const amount = currentOrder.price;
+            // Link untuk membuka aplikasi Gojek/Gopay
+            window.location.href = `gojek://gopay/transfer?amount=${amount}`;
+            
+            setTimeout(() => {
+                alert("Jika aplikasi Gopay tidak terbuka otomatis, silakan scan QRIS atau transfer manual ke 089677040178");
+            }, 2500);
+        }
+
+        function confirmToWA() {
+            const project = document.getElementById('f_project').value;
+            const waMsg = `🚀 *KONFIRMASI PEMBAYARAN - AXCZYL STORE*\n\n` +
+                          `📦 *Produk:* ${currentOrder.name}\n` +
+                          `💰 *Total:* Rp ${currentOrder.price.toLocaleString()}\n` +
+                          `🌐 *Project:* ${project}\n\n` +
+                          `*Saya sudah bayar via aplikasi, tolong segera diproses bang!*`;
+            
+            window.open(`https://wa.me/6289517604572?text=${encodeURIComponent(waMsg)}`, '_blank');
         }
     </script>
 </body>
