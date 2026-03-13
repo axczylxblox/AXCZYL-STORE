@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AXCZYL STORE | PREMIUM DIGITAL SOLUTION</title>
+    <title>AXCZYL STORE | AUTOMATED DIGITAL SOLUTION</title>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
             position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px);
         }
         .logo { font-family: 'Space Grotesk'; font-size: 1.5rem; font-weight: 800; cursor: pointer; }
-        .logo span { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+        .logo span { color: var(--primary); }
 
         section { display: none; padding: 30px 7%; animation: fadeIn 0.4s ease; }
         section.active { display: block; }
@@ -41,19 +41,17 @@
         
         label { display: block; margin-bottom: 8px; font-size: 0.75rem; font-weight: 800; color: #888; text-transform: uppercase; }
         input, select, textarea { width: 100%; padding: 15px; background: #000; border: 1px solid var(--border); color: #fff; border-radius: 12px; margin-bottom: 15px; outline: none; }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
+        input:focus { border-color: var(--primary); }
         
-        .btn { background: var(--primary); color: #fff; border: none; padding: 15px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; }
+        .btn { background: var(--primary); color: #fff; border: none; padding: 15px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .btn:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px var(--primary-glow); }
-        .btn-ewallet { background: #000; border: 1px solid var(--border); margin-bottom: 10px; font-size: 0.9rem; }
-        .btn-ewallet:hover { border-color: var(--primary); }
-
-        /* --- PAYMENT VIEW --- */
+        
         .qris-box { text-align: center; background: #fff; padding: 15px; border-radius: 15px; display: inline-block; margin: 20px 0; }
         .qris-img { width: 100%; max-width: 250px; }
-        .badge-lunas { background: #00ff88; color: #000; padding: 5px 15px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; display: none; }
 
-        #loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
+        .unique-code { background: rgba(255, 0, 127, 0.1); border: 1px dashed var(--primary); padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 20px; }
+        
+        #loading-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; flex-direction: column; }
         .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
@@ -62,89 +60,80 @@
 
     <div id="loading-overlay">
         <div class="spinner"></div>
-        <p style="margin-top: 15px; font-weight: 800; letter-spacing: 2px;">MENGECEK MUTASI...</p>
+        <p style="margin-top: 15px; font-weight: 800; letter-spacing: 2px;">SYNCING WITH SERVER...</p>
     </div>
 
     <div class="glow-bg"></div>
 
     <header>
         <div class="logo" onclick="showPage('home')">AXCZYL<span>STORE</span></div>
-        <div style="font-size: 0.8rem; font-weight: 800; color: var(--primary);"><i class="fas fa-shield-alt"></i> SECURE PAYMENT</div>
+        <div style="font-size: 0.7rem; color: #666;"><i class="fas fa-lock"></i> SECURE GATEWAY</div>
     </header>
 
     <section id="home" class="active">
-        <h2 style="font-family:'Space Grotesk'; margin-bottom: 25px;">PILIH <span>LAYANAN</span></h2>
+        <h2 style="font-family:'Space Grotesk'; margin-bottom: 25px;">CHOOSE <span>SERVICES</span></h2>
         <div class="grid">
             <div class="card">
                 <img src="https://i.ibb.co.com/xKSVXqmb/aplikasi-kiosbank-ppob-mobil-desktop.jpg" style="width:100%; border-radius:15px; margin-bottom:15px;">
                 <h3>Website PPOB Pro</h3>
-                <p style="color:#666; font-size:0.8rem; margin:10px 0;">Sistem Panel Topup Game, Pulsa, & PPOB Otomatis via API.</p>
+                <p style="color:#666; font-size:0.8rem; margin:10px 0;">Panel Topup Game & PPOB Otomatis via API.</p>
                 <h4 style="color:var(--primary); margin-bottom:15px;">Rp 150,000</h4>
-                <button class="btn" onclick="orderNow('Website PPOB Pro', 150000)">ORDER SEKARANG</button>
+                <button class="btn" onclick="startOrder('Website PPOB Pro', 150000)">GET STARTED</button>
             </div>
             <div class="card">
                 <img src="https://i.ibb.co.com/Xx2qGgMY/images-18.jpg" style="width:100%; border-radius:15px; margin-bottom:15px;">
                 <h3>Bot Telegram Store</h3>
-                <p style="color:#666; font-size:0.8rem; margin:10px 0;">Bot Jualan Digital Otomatis 24 Jam dengan Payment Gateway.</p>
+                <p style="color:#666; font-size:0.8rem; margin:10px 0;">Bot Jualan Otomatis 24 Jam dengan Payment Gateway.</p>
                 <h4 style="color:var(--primary); margin-bottom:15px;">Rp 50,000</h4>
-                <button class="btn" onclick="orderNow('Bot Telegram Store', 50000)">ORDER SEKARANG</button>
+                <button class="btn" onclick="startOrder('Bot Telegram Store', 50000)">GET STARTED</button>
             </div>
         </div>
     </section>
 
     <section id="form-order">
-        <div onclick="showPage('home')" style="cursor:pointer; color:var(--primary); margin-bottom:20px; font-weight:800;"><i class="fas fa-chevron-left"></i> KEMBALI</div>
-        <div class="card" style="max-width:550px; margin:auto;">
-            <h2 style="font-family:'Space Grotesk'; margin-bottom:20px;">FORM <span>PROJECT</span></h2>
+        <div class="card" style="max-width:500px; margin:auto;">
+            <h2 style="font-family:'Space Grotesk'; margin-bottom:20px;">PROJECT <span>DETAILS</span></h2>
+            <label>Project Name / Domain</label>
+            <input type="text" id="f_project" placeholder="e.g. store.axczyl.com">
+            <label>Email Address</label>
+            <input type="email" id="f_email" placeholder="e.g. shin@axczyl.com">
+            <label>Additional Notes</label>
+            <textarea id="f_note" rows="3" placeholder="Colors, features, etc..."></textarea>
             
-            <label>Nama Project / Domain</label>
-            <input type="text" id="f_project" placeholder="Contoh: axczyl-ppob.com">
-            
-            <label>Email Aktif</label>
-            <input type="email" id="f_email" placeholder="Untuk pengiriman data project">
-            
-            <label>Permintaan Khusus / Catatan</label>
-            <textarea id="f_note" rows="3" placeholder="Contoh: Warna tema hijau neon, tambah fitur deposit saldo..."></textarea>
-
-            <div style="background:#000; padding:15px; border-radius:12px; border:1px solid var(--primary); margin-bottom:20px;">
-                <p style="font-size:0.7rem; color:#888;">RINGKASAN TAGIHAN:</p>
-                <h3 id="billName">Produk</h3>
-                <h2 id="billPrice" style="color:var(--primary);">Rp 0</h2>
-            </div>
-
-            <button class="btn" onclick="goToPayment()">LANJUT KE PEMBAYARAN <i class="fas fa-arrow-right"></i></button>
+            <button class="btn" onclick="generateBill()">CONFIRM ORDER</button>
         </div>
     </section>
 
     <section id="payment-view">
         <div class="card" style="max-width:500px; margin:auto; text-align:center;">
-            <h3 style="font-family:'Space Grotesk';">CHECKOUT <span>SECURE</span></h3>
-            <p style="font-size:0.8rem; color:#888; margin-top:5px;">Selesaikan pembayaran Anda untuk memproses pesanan.</p>
+            <h3>SECURE <span>PAYMENT</span></h3>
+            
+            <div class="unique-code">
+                <p style="font-size:0.8rem; color:#888;">TOTAL TAGIHAN (+ Kode Unik):</p>
+                <h2 id="finalBill" style="color:var(--primary); font-family:'Space Grotesk'; font-size: 2.2rem;">Rp 0</h2>
+                <p style="font-size:0.7rem; color:var(--primary);">Penting: Transfer sesuai nominal persis agar otomatis terdeteksi.</p>
+            </div>
 
             <div class="qris-box">
                 <img src="https://i.ibb.co.com/zh14S8vp/Kode-QRIS-AXCZYL-STORE-Kesehatan-Olahraga.jpg" class="qris-img">
             </div>
-            <p style="font-size:0.7rem; color:#444; margin-bottom:20px;">Scan QRIS di atas dengan Dana, OVO, GoPay, atau LinkAja</p>
 
-            <div style="border-top:1px solid var(--border); padding-top:20px;">
-                <label>BAYAR LANGSUNG VIA APLIKASI (DEEP LINK)</label>
-                <button class="btn btn-ewallet" onclick="openEwallet('dana')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_danamas.png" width="18"> BUKA APLIKASI DANA
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:20px;">
+                <button class="btn" style="background:#000; border:1px solid #111;" onclick="openDana()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_danamas.png" width="15"> DANA
                 </button>
-                <button class="btn btn-ewallet" onclick="openEwallet('gopay')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Logo_GoPay.png" width="18"> BUKA APLIKASI GOPAY
+                <button class="btn" style="background:#000; border:1px solid #111;" onclick="alert('Manual Transfer ke 089677040178 (GOPAY)')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Logo_GoPay.png" width="15"> GOPAY
                 </button>
             </div>
 
-            <div style="margin-top:20px;">
-                <p style="font-size:0.9rem; margin-bottom:10px;">Sudah transfer? Klik tombol cek mutasi:</p>
-                <button class="btn" onclick="checkMutasi()"><i class="fas fa-sync-alt"></i> CEK STATUS PEMBAYARAN</button>
-            </div>
+            <button class="btn" onclick="checkStatus()"><i class="fas fa-sync-alt"></i> CHECK PAYMENT STATUS</button>
+            <p style="font-size:0.7rem; color:#444; margin-top:15px;" onclick="window.open('https://wa.me/6289517604572')">Payment Problem? Click to Chat Admin</p>
         </div>
     </section>
 
     <script>
-        let selectedProduct = { name: "", price: 0 };
+        let orderData = { name: "", price: 0, finalPrice: 0 };
 
         function showPage(id) {
             document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
@@ -152,57 +141,75 @@
             window.scrollTo(0,0);
         }
 
-        function orderNow(name, price) {
-            selectedProduct = { name, price };
-            document.getElementById('billName').innerText = name;
-            document.getElementById('billPrice').innerText = `Rp ${price.toLocaleString()}`;
+        function startOrder(name, price) {
+            orderData.name = name;
+            orderData.price = price;
             showPage('form-order');
         }
 
-        function goToPayment() {
+        async function generateBill() {
             const project = document.getElementById('f_project').value;
             const email = document.getElementById('f_email').value;
-            if(!project || !email) return alert("Mohon lengkapi Nama Project dan Email!");
-            showPage('payment-view');
-        }
+            if(!project || !email) return alert("Please fill all fields!");
 
-        function openEwallet(type) {
-            const amount = selectedProduct.price;
-            const danaNumber = "089517604572";
-            const gopayNumber = "089677040178";
-            
-            if(type === 'dana') {
-                // Link khusus untuk kirim uang di aplikasi DANA
-                window.open(`https://link.dana.id/send-money/?phone=${danaNumber}&amount=${amount}&comment=Order_${selectedProduct.name}`, '_blank');
-            } else {
-                // Link simulasi buka Gojek
-                window.open(`gojek://gopay/transfer?amount=${amount}`, '_blank');
-                alert("Silakan kirim manual ke nomor GOPAY: " + gopayNumber + " sebesar Rp " + amount.toLocaleString());
+            // Overlay Sync
+            document.getElementById('loading-overlay').style.display = 'flex';
+
+            // Tambah kode unik 1-999
+            const unique = Math.floor(Math.random() * 999) + 1;
+            orderData.finalPrice = orderData.price + unique;
+
+            // Hit API pay.js
+            try {
+                await fetch('/api/pay', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        project, email, 
+                        product: orderData.name, 
+                        price: orderData.finalPrice
+                    })
+                });
+                
+                document.getElementById('finalBill').innerText = `Rp ${orderData.finalPrice.toLocaleString()}`;
+                setTimeout(() => {
+                    document.getElementById('loading-overlay').style.display = 'none';
+                    showPage('payment-view');
+                }, 1500);
+            } catch(e) {
+                alert("Server Sync Error!");
+                document.getElementById('loading-overlay').style.display = 'none';
             }
         }
 
-        function checkMutasi() {
-            const overlay = document.getElementById('loading-overlay');
-            overlay.style.display = 'flex';
+        function openDana() {
+            window.open(`https://link.dana.id/send-money/?phone=089517604572&amount=${orderData.finalPrice}&comment=Payment_For_${orderData.name.replace(/\s/g, '_')}`, '_blank');
+        }
 
-            // Simulasi deteksi mutasi selama 3 detik
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                alert("Pembayaran belum terdeteksi sistem mutasi. Pastikan nominal sudah sesuai.\n\nKlik OK untuk konfirmasi manual via WhatsApp.");
+        async function checkStatus() {
+            document.getElementById('loading-overlay').style.display = 'flex';
+            
+            // Hit API check.js
+            try {
+                const res = await fetch('/api/check');
+                const result = await res.json();
                 
-                const project = document.getElementById('f_project').value;
-                const note = document.getElementById('f_note').value;
-                
-                const waMsg = `📢 *KONFIRMASI PEMBAYARAN - AXCZYL STORE*\n\n` +
-                              `📦 *Produk:* ${selectedProduct.name}\n` +
-                              `💰 *Total:* Rp ${selectedProduct.price.toLocaleString()}\n` +
-                              `🌐 *Project:* ${project}\n` +
-                              `📝 *Note:* ${note}\n\n` +
-                              `_Saya sudah transfer lewat E-Wallet, tolong segera dicek bang!_`;
-                
-                window.open(`https://wa.me/6289517604572?text=${encodeURIComponent(waMsg)}`, '_blank');
-            }, 3000);
+                setTimeout(() => {
+                    document.getElementById('loading-overlay').style.display = 'none';
+                    if(result.status === 'PAID') {
+                        alert("LUNAS! Terima kasih. Admin akan segera menghubungi via Email/WhatsApp.");
+                    } else {
+                        alert("Pembayaran belum terdeteksi. Silakan transfer sesuai nominal unik atau hubungi admin.");
+                        // Redirect ke WA sebagai backup
+                        const waMsg = `🚀 *KONFIRMASI PEMBAYARAN*\nProject: ${document.getElementById('f_project').value}\nNominal: Rp ${orderData.finalPrice.toLocaleString()}\n\n*Saya sudah transfer, tolong dicek!*`;
+                        window.open(`https://wa.me/6289517604572?text=${encodeURIComponent(waMsg)}`, '_blank');
+                    }
+                }, 2000);
+            } catch(e) {
+                document.getElementById('loading-overlay').style.display = 'none';
+                alert("Gagal terhubung ke sistem mutasi.");
+            }
         }
     </script>
 </body>
-                    </html>
+</html>
